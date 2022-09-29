@@ -20,6 +20,8 @@ analyzer:
   exclude: 
     - doc/***
     - test/data/***
+    - assets/***
+    
   language:
     strict-casts: true
     strict-raw-types: true    

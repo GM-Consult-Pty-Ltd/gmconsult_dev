@@ -24,9 +24,10 @@ Skip to section:
 TODO: Overview
 
 A collection of utilities used for unit testing and code generation.  May require knowledge of
-GM Consult coding practices and management systems.
+GM Consult coding practices and management systems:
 
-Use the `Echo` class to print a collection JSON documents to the console as a formatted table.
+* Use the `Echo` class to print a collection JSON documents to the console as a formatted table.
+* Use the `JsonDataService` class to quickly create and populate a asynchronous persisted datastore.
 
 ## Usage
 
@@ -66,6 +67,52 @@ Echo(title: 'MY TEST NAME', results: json).printResults();
 // —————————————————————————————————————————————————————————————————————————————————
 
 //
+```
+
+Alternatively, initialize a `JsonDataService`, populate it and then read from it.
+
+```dart
+
+  // get some data
+  final jsonCollection = {
+    'term0': {'term': 'bodrer', 'dL': 0.0, 'cLs': 1.0},
+    'term1': {'term': 'board', 'dL': 0.26303837, 'cLs': 0.736},
+    'term2': {'term': 'border', 'dL': 0.0, 'cLs': 1.0},
+    'term3': {'term': 'boarder', 'dL': 0.222395656, 'cLs': 0.77761454},
+    'term4': {'term': 'brother', 'dL': 0.22239353904, 'cLs': 0.7776134576},
+    'term5': {'term': 'broad', 'dL': 0.263035476, 'cLs': 0.73697546},
+    'term6': {'term': 'bored', 'dL': 0.2630354, 'cLs': 0.7369766},
+  };
+
+  // instantiate a JsonDataService
+  final service = await JsonDataService.hydrate(
+      '${Directory.current.path}\\example', 'sampleStocks');
+
+  // clear the datastore
+  await service.dataStore.clear();
+
+  // add all the elements of sampleStocks
+  await service.batchUpsert(jsonCollection);
+
+  // read a few records
+  final results = (await service.batchRead(['term3', 'term5'])).values.toList();
+
+  // print the records
+  Echo(title: 'JSON DATA SERVICE', results: results).printResults();
+
+  // close the service, releasing the resources
+  await service.close();
+
+  // prints:
+  // ———————————————————————————————————————————————————————————————————————————————————
+  // JSON DATA SERVICE                                                                  
+  // ___________________________________________________________________________________
+  // │  term                  │             dL             │            cLs            │
+  // ———————————————————————————————————————————————————————————————————————————————————
+  // │  boarder               │                   0.22240  │                  0.77761  │
+  // │  broad                 │                   0.26304  │                  0.73698  │
+  // ———————————————————————————————————————————————————————————————————————————————————
+
 ```
 
 

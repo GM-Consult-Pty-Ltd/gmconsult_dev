@@ -65,8 +65,11 @@ All rights reserved.
 <h2 id="overview">Overview</h2>
 <p>TODO: Overview</p>
 <p>A collection of utilities used for unit testing and code generation.  May require knowledge of
-GM Consult coding practices and management systems.</p>
-<p>Use the <code>Echo</code> class to print a collection JSON documents to the console as a formatted table.</p>
+GM Consult coding practices and management systems:</p>
+<ul>
+<li>Use the <code>Echo</code> class to print a collection JSON documents to the console as a formatted table.</li>
+<li>Use the <code>JsonDataService</code> class to quickly create and populate a asynchronous persisted datastore.</li>
+</ul>
 <h2 id="usage">Usage</h2>
 <p>In the <code>pubspec.yaml</code> of your flutter project, add the following dev dependency:</p>
 <pre class="language-yaml"><code class="language-yaml">dev_dependencies:
@@ -97,6 +100,49 @@ Echo(title: 'MY TEST NAME', results: json).printResults();
 // —————————————————————————————————————————————————————————————————————————————————
 
 //
+</code></pre>
+<p>Alternatively, initialize a <code>JsonDataService</code>, populate it and then read from it.</p>
+<pre class="language-dart"><code class="language-dart">
+  // get some data
+  final jsonCollection = {
+    'term0': {'term': 'bodrer', 'dL': 0.0, 'cLs': 1.0},
+    'term1': {'term': 'board', 'dL': 0.26303837, 'cLs': 0.736},
+    'term2': {'term': 'border', 'dL': 0.0, 'cLs': 1.0},
+    'term3': {'term': 'boarder', 'dL': 0.222395656, 'cLs': 0.77761454},
+    'term4': {'term': 'brother', 'dL': 0.22239353904, 'cLs': 0.7776134576},
+    'term5': {'term': 'broad', 'dL': 0.263035476, 'cLs': 0.73697546},
+    'term6': {'term': 'bored', 'dL': 0.2630354, 'cLs': 0.7369766},
+  };
+
+  // instantiate a JsonDataService
+  final service = await JsonDataService.hydrate(
+      '${Directory.current.path}\\example', 'sampleStocks');
+
+  // clear the datastore
+  await service.dataStore.clear();
+
+  // add all the elements of sampleStocks
+  await service.batchUpsert(jsonCollection);
+
+  // read a few records
+  final results = (await service.batchRead(['term3', 'term5'])).values.toList();
+
+  // print the records
+  Echo(title: 'JSON DATA SERVICE', results: results).printResults();
+
+  // close the service, releasing the resources
+  await service.close();
+
+  // prints:
+  // ———————————————————————————————————————————————————————————————————————————————————
+  // JSON DATA SERVICE                                                                  
+  // ___________________________________________________________________________________
+  // │  term                  │             dL             │            cLs            │
+  // ———————————————————————————————————————————————————————————————————————————————————
+  // │  boarder               │                   0.22240  │                  0.77761  │
+  // │  broad                 │                   0.26304  │                  0.73698  │
+  // ———————————————————————————————————————————————————————————————————————————————————
+
 </code></pre>
 <h2 id="api">API</h2>
 <p>See the <a href="https://pub.dev/documentation/gmconsult_dev/latest/">API on pub.dev</a>.</p>
@@ -154,7 +200,7 @@ standardize unit testing.
 <footer>
   <span class="no-break">
     gmconsult_dev
-      0.0.1-1
+      0.0.1
   </span>
 
   

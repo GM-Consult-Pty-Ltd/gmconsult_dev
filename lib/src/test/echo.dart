@@ -20,7 +20,7 @@ typedef TestResults = List<Map<String, dynamic>>;
 ///
 /// All values in [results] will be printed by calling [toString] on the value,
 /// except for [double] values which will be formatted using `toStringAsFixed`
-/// after calculating three popints of precision for all values in the field.
+/// after calculating three points of precision for all values in the field.
 ///
 /// For any other formatting of values pre-format the value as [String] before
 /// adding to [results].
@@ -202,7 +202,7 @@ extension _ObjectValueExtension on Object {
     } else {
       text = value.toString();
     }
-    return text;
+    return text.length > 40 ? '${text.substring(0, 37)}...' : text;
   }
 }
 

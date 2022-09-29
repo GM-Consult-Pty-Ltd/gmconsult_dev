@@ -6,7 +6,7 @@
 
 name: gmconsult_dev
 description: DART utilities for GM Consult developers to generate code and lubricate / standardize unit testing.
-version: 0.0.1-1
+version: 0.0.1
 repository: https://github.com/GM-Consult-Pty-Ltd/gmconsult_dev
 homepage: https://github.com/GM-Consult-Pty-Ltd
 issue_tracker: https://github.com/GM-Consult-Pty-Ltd/gmconsult_dev/issues
@@ -17,6 +17,7 @@ environment:
 dependencies:
   # -----PubDev Packages (in alphabetic order) -----
   collection: ^1.16.0
+  hive: ^2.2.3
 
 dev_dependencies:
   lints: ^2.0.0
