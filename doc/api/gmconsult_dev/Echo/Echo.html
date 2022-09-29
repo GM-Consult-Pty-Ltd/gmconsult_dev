@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the Echo constructor from Class Echo from the gmconsult_dev library, for the Dart programming language.">
+  <title>Echo constructor - Echo - gmconsult_dev library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">gmconsult_dev</a></li>
+    <li><a href="../../gmconsult_dev/gmconsult_dev-library.html">gmconsult_dev</a></li>
+    <li><a href="../../gmconsult_dev/Echo-class.html">Echo</a></li>
+    <li class="self-crumb">Echo factory constructor</li>
+  </ol>
+  <div class="self-name">Echo</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-constructor">Echo</span> constructor 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">
+      <span class="name ">Echo</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="-param-title">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">title</span>, </span></li>
+<li><span class="parameter" id="-param-results"><span>required</span> <span class="type-annotation"><a href="../../gmconsult_dev/TestResults.html">TestResults</a></span> <span class="parameter-name">results</span>, </span></li>
+<li><span class="parameter" id="-param-fieldPadding"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/int-class.html">int</a></span> <span class="parameter-name">fieldPadding</span> = <span class="default-value">2</span>, </span></li>
+<li><span class="parameter" id="-param-fields"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">fields</span>}</span></li>
+</ol>)
+    </section>
+
+    
+<section class="desc markdown">
+  <p>Factory that initializes <a href="../../gmconsult_dev/Echo-class.html">Echo</a> with:</p>
+<ul>
+<li><code>title</code> will be printed at the top of your test results;</li>
+<li><code>results</code>;</li>
+<li><code>fieldPadding</code> is the padding added to the columns, defaults to 5;</li>
+<li><code>fields</code> is an ordered collection field names in <code>results</code>. The output
+table columns are ordered in the same order as <code>fields</code>. If <code>fields</code> is
+null or empty the field names from the first element in <code>results</code> will
+be used.</li>
+</ul>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">factory Echo(
+    {required String title,
+    required TestResults results,
+    int fieldPadding = 2,
+    List&lt;String&gt;? fields}) {
+  fields = fields ?? [];
+  if (fields.isEmpty &amp;&amp; results.isNotEmpty) {
+    fields.addAll(results.first.keys);
+  }
+  final fieldWidths = &lt;String, int&gt;{};
+  final fieldDigits = &lt;String, int?&gt;{};
+  for (var i = 0; i &lt; fields.length; i++) {
+    final fieldName = fields[i];
+    fieldWidths[fieldName] = results.fieldWidth(fieldName, fieldPadding);
+    fieldDigits[fieldName] = results.fieldDigits(fieldName);
+  }
+  final fieldsWidth = fieldWidths.values.sum;
+  var d = 0;
+  if (fieldsWidth &lt; 79) {
+    d = ((79 - fieldsWidth) &#47; fields.length).floor();
+  } else if (title.length &gt; fieldsWidth) {
+    d = ((title.length - fieldsWidth) &#47; fields.length).floor();
+  }
+  if (d &gt; 0) {
+    for (final entry in fieldWidths.entries) {
+      fieldWidths[entry.key] = entry.value + d;
+    }
+  }
+
+  return Echo._(
+      title, results, fields, fieldWidths, fieldDigits, fieldPadding);
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">gmconsult_dev</a></li>
+  <li><a href="../../gmconsult_dev/gmconsult_dev-library.html">gmconsult_dev</a></li>
+  <li><a href="../../gmconsult_dev/Echo-class.html">Echo</a></li>
+  <li class="self-crumb">Echo factory constructor</li>
+</ol>
+
+
+    <h5>Echo class</h5>
+    <ol>
+
+        <li class="section-title"><a href="../../gmconsult_dev/Echo-class.html#constructors">Constructors</a></li>
+          <li><a href="../../gmconsult_dev/Echo/Echo.html">Echo</a></li>
+
+
+    <li class="section-title">
+      <a href="../../gmconsult_dev/Echo-class.html#instance-properties">Properties</a>
+    </li>
+    <li><a href="../../gmconsult_dev/Echo/fieldPadding.html">fieldPadding</a></li>
+    <li><a href="../../gmconsult_dev/Echo/fields.html">fields</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li><a href="../../gmconsult_dev/Echo/results.html">results</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+    <li><a href="../../gmconsult_dev/Echo/title.html">title</a></li>
+
+    <li class="section-title"><a href="../../gmconsult_dev/Echo-class.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li><a href="../../gmconsult_dev/Echo/printResults.html">printResults</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../../gmconsult_dev/Echo-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-left-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    gmconsult_dev
+      0.0.1-1
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+
