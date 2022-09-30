@@ -2,7 +2,7 @@
 // BSD 3-Clause License
 // All rights reserved
 
-part of '../gm_consult_dev_sample_data.dart';
+part of '../test_data.dart';
 
 /// A sample data set of sharemarket related JSON documents.
 ///

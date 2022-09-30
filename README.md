@@ -25,9 +25,10 @@ TODO: Overview
 
 A collection of utilities used for unit testing and code generation.  May require knowledge of
 GM Consult coding practices and management systems:
-
-* Use the `Echo` class to print a collection JSON documents to the console as a formatted table.
-* Use the `JsonDataService` class to quickly create and populate a asynchronous persisted datastore.
+* Use the [Echo] class to print a collection JSON documents to the console as a formatted table.
+* Use the [SaveAs] class to save text and JSON documents to disk.
+* Use datasets from the [TestData] class in your unit tests.
+* Use the [JsonDataService] class to quickly create and populate a asynchronous persisted datastore.
 
 ## Usage
 
@@ -44,7 +45,9 @@ In your test file add the following import:
 import 'package:gmconsult_dev/gmconsult_dev.dart';
 ```
 
-Pass a collection of JSON documents to the `Echo()` factory constructor and call `printResults`:
+#### Print test results with Echo class
+
+Pass a collection of JSON documents to the [Echo()]() unnamed factory constructor and call [printResults]():
 ```dart
 
 // a sample list of JSON documents
@@ -115,6 +118,34 @@ Alternatively, initialize a `JsonDataService`, populate it and then read from it
 
 ```
 
+### Save text, JSON or test results with the [SaveAs]() class using data from [TestData]()
+
+Just call the appropriate static method from the [SaveAs]() class:
+
+```dart
+
+      // save text
+      await SaveAs.text(
+        fileName: 'test/data/google',
+        text: TestData.text,
+      );
+
+      // save a JSON document
+      await SaveAs.json(
+        fileName: 'test/data/google',
+        json: TestData.json,
+      );
+
+      // save your TestResults collection
+      await SaveAs.results(
+        fileName: 'test/data/results',
+        results: TestData.stockData.values,
+        keyBuilder: (json) => json['id'],
+      );
+
+
+
+```
 
 ## API
 

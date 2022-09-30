@@ -5,23 +5,29 @@
 part 'data/sample_news.dart';
 part 'data/sample_stocks.dart';
 
-/// Sample data sets used for testing.
-abstract class GMConsultDevSampleData {
+/// Sample datasets used for testing.
+abstract class TestData {
   //
 
-  /// A sample data set of sharemarket related JSON documents.
+  /// A sample dataset of sharemarket related JSON documents.
   ///
   /// Returns a Map<String, Map<String, dynamic>>
   static const stockNews = _sampleNews;
 
   /// A small collection of stock data JSON documents for
-  /// - AAPL.XNGS,
+  /// - AAPL:XNGS,
   /// - GOOG:XNGS,
   /// - GOOGL:XNGS,
   /// - TSLA:XNGS,
   static const stockData = _sampleStocks;
 
-  /// Simple list of JSON documents to test [Echo] class.
+  /// A long String with line breaks.
+  static String get text => json['description'] as String;
+
+  /// A single JSON document.
+  static Map<String, dynamic> get json => stockData['GOOG:XNGS']!;
+
+  /// Simple list of JSON documents.
   static const jsonList = [
     {'term': 'bodrer', 'other': 'bodrer', 'dL': 0.0, 'cLs': 1.0},
     {'term': 'bodrer', 'other': 'border', 'dL': 0.0, 'cLs': 1.0},

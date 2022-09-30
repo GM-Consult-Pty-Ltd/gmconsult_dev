@@ -4,30 +4,52 @@
 
 @Timeout(Duration(minutes: 10))
 
+import 'dart:convert';
+
 import 'package:gmconsult_dev/gmconsult_dev.dart';
+import 'package:gmconsult_dev/src/typedefs.dart';
+import 'package:gmconsult_dev/test_data.dart';
 import 'package:test/test.dart';
-import 'gm_consult_dev_sample_data.dart';
+
 import 'dart:math';
 import 'dart:io';
 
 void main() {
   //
 
-  group('SaveAs', (() {
-    test('.saveText', (() {
-      final text = GMConsultDevSampleData
-          .stockData.entries.first.value['description'] as String;
-      final path = 'test/data/';
-      final fileName = 'description';
-      SaveAs.text(fileName: fileName, text: text, path: path);
+  group('SaveAs', (() async {
+    //
+
+    test('.text', (() async {
+      await SaveAs.text(
+        fileName: 'test/data/google',
+        text: TestData.text,
+      );
     }));
+
+    test('.json', (() async {
+      await SaveAs.json(
+        fileName: 'test/data/google',
+        json: TestData.json,
+      );
+    }));
+
+    test('.results', (() async {
+      await SaveAs.results(
+        fileName: 'test/data/results',
+        results: TestData.stockData.values,
+        keyBuilder: (json) => json['id'],
+      );
+    }));
+
+    //
   }));
 
   group('ECHO', () {
     final results = <Map<String, dynamic>>[];
     setUp(() {
       var i = 0;
-      for (final entry in GMConsultDevSampleData.jsonList) {
+      for (final entry in TestData.jsonList) {
         results.add({
           'Term': entry['other'],
           'Length Similarity': entry['cLs'],
@@ -44,7 +66,7 @@ void main() {
           title: 'PRINT JSON: (Echo.printResults)',
           maxColWidth: 160,
           minPrintWidth: 200,
-          results: GMConsultDevSampleData.stockData.values.toList(),
+          results: TestData.stockData.values.toList(),
           fields: ['ticker', 'name', 'description']).printResults();
     }));
 
@@ -64,7 +86,7 @@ void main() {
       await service.dataStore.clear();
 
       // add all the elements of sampleStocks
-      await service.batchUpsert(GMConsultDevSampleData.stockData);
+      await service.batchUpsert(TestData.stockData);
 
       // read a few records
       final results =
@@ -146,3 +168,49 @@ void main() {
 
   //
 }
+
+Future<void> saveKgramIndex(TestResults value) async {
+  final out = File('kGramIndex.txt').openWrite();
+  out.writeln('const vocabularykGrams = {');
+  for (final e in value) {
+    final buffer = StringBuffer();
+    buffer.write('${_toDart(e['id'])}: {');
+    buffer.write(_toDart(e));
+    // var i = 0;
+    // for (final entry in e.entries) {
+    //   buffer.write(i > 0 ? ', ' : '');
+    //   buffer.write('r"${entry.key}":');
+    //   i++;
+    // }
+    buffer.write('},');
+    out.writeln(buffer.toString());
+  }
+  out.writeln('};');
+  await out.close();
+}
+
+// Future<void> results(
+//     {required String fileName,
+//     required TestResults results,
+//     required KeyBuilder keyBuilder,
+//     String varName = 'results',
+//     String extension = 'dart'}) async {
+//   final file = File('$fileName.$extension').openWrite();
+//   file.writeln('const $varName = {');
+//   for (final json in results) {
+//     final buffer = StringBuffer();
+//     buffer.write('${_toDart(keyBuilder(json))}: ');
+//     buffer.writeln(_toDart(json));
+//     buffer.write(',');
+//     file.writeln(buffer.toString());
+//   }
+//   file.writeln('};');
+//   await file.close();
+// }
+
+String _toDart(dynamic value) => value == null
+    ? 'null'
+    : jsonEncode(value)
+        .replaceAll("'", r"\'")
+        .replaceAll(r'$', r'\$')
+        .replaceAll('"', "'");

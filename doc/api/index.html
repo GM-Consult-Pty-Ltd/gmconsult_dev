@@ -67,8 +67,10 @@ All rights reserved.
 <p>A collection of utilities used for unit testing and code generation.  May require knowledge of
 GM Consult coding practices and management systems:</p>
 <ul>
-<li>Use the <code>Echo</code> class to print a collection JSON documents to the console as a formatted table.</li>
-<li>Use the <code>JsonDataService</code> class to quickly create and populate a asynchronous persisted datastore.</li>
+<li>Use the <a href="gmconsult_dev/Echo-class.html">Echo</a> class to print a collection JSON documents to the console as a formatted table.</li>
+<li>Use the <a href="gmconsult_dev/SaveAs-class.html">SaveAs</a> class to save text and JSON documents to disk.</li>
+<li>Use datasets from the <a href="test_data/TestData-class.html">TestData</a> class in your unit tests.</li>
+<li>Use the <a href="gmconsult_dev/JsonDataService-class.html">JsonDataService</a> class to quickly create and populate a asynchronous persisted datastore.</li>
 </ul>
 <h2 id="usage">Usage</h2>
 <p>In the <code>pubspec.yaml</code> of your flutter project, add the following dev dependency:</p>
@@ -78,7 +80,8 @@ GM Consult coding practices and management systems:</p>
 <p>In your test file add the following import:</p>
 <pre class="language-dart"><code class="language-dart">import 'package:gmconsult_dev/gmconsult_dev.dart';
 </code></pre>
-<p>Pass a collection of JSON documents to the <code>Echo()</code> factory constructor and call <code>printResults</code>:</p>
+<h4 id="print-test-results-with-echo-class">Print test results with Echo class</h4>
+<p>Pass a collection of JSON documents to the <a href="">Echo()</a> unnamed factory constructor and call <a href="">printResults</a>:</p>
 <pre class="language-dart"><code class="language-dart">
 // a sample list of JSON documents
 final json =[
@@ -144,6 +147,31 @@ Echo(title: 'MY TEST NAME', results: json).printResults();
   // ———————————————————————————————————————————————————————————————————————————————————
 
 </code></pre>
+<h3 id="save-text-json-or-test-results-with-the-saveas-class-using-data-from-testdata">Save text, JSON or test results with the <a href="">SaveAs</a> class using data from <a href="">TestData</a></h3>
+<p>Just call the appropriate static method from the <a href="">SaveAs</a> class:</p>
+<pre class="language-dart"><code class="language-dart">
+      // save text
+      await SaveAs.text(
+        fileName: 'test/data/google',
+        text: TestData.text,
+      );
+
+      // save a JSON document
+      await SaveAs.json(
+        fileName: 'test/data/google',
+        json: TestData.json,
+      );
+
+      // save your TestResults collection
+      await SaveAs.results(
+        fileName: 'test/data/results',
+        results: TestData.stockData.values,
+        keyBuilder: (json) =&gt; json['id'],
+      );
+
+
+
+</code></pre>
 <h2 id="api">API</h2>
 <p>See the <a href="https://pub.dev/documentation/gmconsult_dev/latest/">API on pub.dev</a>.</p>
 <h2 id="definitions">Definitions</h2>
@@ -167,6 +195,20 @@ Echo(title: 'MY TEST NAME', results: json).printResults();
 standardize unit testing.
 </dd>
 
+          <dt id="test_data">
+  <span class="name"><a href="test_data/test_data-library.html">test_data</a></span> 
+
+</dt>
+<dd>Type definitions used in the gmconsult_dev package.
+</dd>
+
+          <dt id="type_definitions">
+  <span class="name"><a href="type_definitions/type_definitions-library.html">type_definitions</a></span> 
+
+</dt>
+<dd>Type definitions used in the gmconsult_dev package.
+</dd>
+
         </dl>
       </section>
 
@@ -188,6 +230,8 @@ standardize unit testing.
     <ol>
       <li class="section-title">Libraries</li>
       <li><a href="gmconsult_dev/gmconsult_dev-library.html">gmconsult_dev</a></li>
+      <li><a href="test_data/test_data-library.html">test_data</a></li>
+      <li><a href="type_definitions/type_definitions-library.html">type_definitions</a></li>
 </ol>
 
   </div>

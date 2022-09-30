@@ -6,6 +6,4 @@
 /// standardize unit testing.
 library gmconsult_dev;
 
-/// Export of barrel file in the /src folder.
-/// src/_index.dart exports the barrel files from
 export 'src/_index.dart';

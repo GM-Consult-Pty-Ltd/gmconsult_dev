@@ -5,9 +5,7 @@
 
 import 'dart:math';
 import 'package:collection/collection.dart';
-
-/// Alias for `List<Map<String, dynamic>>`.
-typedef TestResults = Iterable<Map<String, dynamic>>;
+import 'package:gmconsult_dev/src/typedefs.dart';
 
 /// Test utility class to echo your test results to the console.
 ///

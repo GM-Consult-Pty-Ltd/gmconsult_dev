@@ -20,6 +20,7 @@ analyzer:
   exclude: 
     - doc/***
     - test/data/***
+    - lib/src/test_data/data
     - assets/***
     
   language:
