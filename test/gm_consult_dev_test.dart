@@ -30,8 +30,12 @@ void main() {
     });
 
     test('.printResults(results)', (() {
-      Echo(title: 'PRINT JSON: (Echo.printResults)', results: results)
-          .printResults();
+      Echo(
+          title: 'PRINT JSON: (Echo.printResults)',
+          maxColWidth: 160,
+          minPrintWidth: 200,
+          results: GMConsultDevSampleData.stockData.values.toList(),
+          fields: ['ticker', 'name', 'description']).printResults();
     }));
 
     //

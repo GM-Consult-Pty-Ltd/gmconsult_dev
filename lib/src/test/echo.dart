@@ -7,7 +7,7 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 
 /// Alias for `List<Map<String, dynamic>>`.
-typedef TestResults = List<Map<String, dynamic>>;
+typedef TestResults = Iterable<Map<String, dynamic>>;
 
 /// Test utility class to echo your test results to the console.
 ///
@@ -34,55 +34,20 @@ typedef TestResults = List<Map<String, dynamic>>;
 class Echo {
   //
 
+  /// Horizontal table row border character.
+  static const _kRowSeparator = '—';
+
+  /// Vertical table row border character.
+  static const _kColumnSeparator = '│';
+
   /// The name or title of the test for which results are printed.
   final String title;
 
   /// The white-space padding to add to the columns
   final int fieldPadding;
 
-  /// Factory that initializes [Echo] with:
-  /// - [title] will be printed at the top of your test results;
-  /// - [results];
-  /// - [fieldPadding] is the padding added to the columns, defaults to 5;
-  /// - [fields] is an ordered collection field names in [results]. The output
-  ///   table columns are ordered in the same order as [fields]. If [fields] is
-  ///   null or empty the field names from the first element in [results] will
-  ///   be used.
-  factory Echo(
-      {required String title,
-      required TestResults results,
-      int fieldPadding = 2,
-      List<String>? fields}) {
-    fields = fields ?? [];
-    if (fields.isEmpty && results.isNotEmpty) {
-      fields.addAll(results.first.keys);
-    }
-    final fieldWidths = <String, int>{};
-    final fieldDigits = <String, int?>{};
-    for (var i = 0; i < fields.length; i++) {
-      final fieldName = fields[i];
-      fieldWidths[fieldName] = results.fieldWidth(fieldName, fieldPadding);
-      fieldDigits[fieldName] = results.fieldDigits(fieldName);
-    }
-    final fieldsWidth = fieldWidths.values.sum;
-    var d = 0;
-    if (fieldsWidth < 79) {
-      d = ((79 - fieldsWidth) / fields.length).floor();
-    } else if (title.length > fieldsWidth) {
-      d = ((title.length - fieldsWidth) / fields.length).floor();
-    }
-    if (d > 0) {
-      for (final entry in fieldWidths.entries) {
-        fieldWidths[entry.key] = entry.value + d;
-      }
-    }
-
-    return Echo._(
-        title, results, fields, fieldWidths, fieldDigits, fieldPadding);
-  }
-
-  Echo._(this.title, this.results, this.fields, this._fieldWidths,
-      this._fieldDigits, this.fieldPadding);
+  /// The maximum width of any column in the table.
+  final int maxColWidth;
 
   /// An ordered collection field names in [results]. The output table columns
   /// are ordered in the same order as [fields].
@@ -95,6 +60,62 @@ class Echo {
   /// A collection of JSON documents with the same [fields];
   final Iterable<Map<String, dynamic>> results;
 
+  /// Factory that initializes [Echo] with:
+  /// - [title] will be printed at the top of your test results;
+  /// - [results];
+  /// - [fieldPadding] is the padding added to the columns, defaults to 5;
+  /// - [fields] is an ordered collection field names in [results]. The output
+  ///   table columns are ordered in the same order as [fields]. If [fields] is
+  ///   null or empty the field names from the first element in [results] will
+  ///   be used;
+  /// - [maxColWidth] is the maximum width of any column in the table. If the
+  ///   width of the value printed in the column is wider than [maxColWidth]
+  ///   the text will be truncated to [maxColWidth]; and
+  /// - [minPrintWidth] is the minimum print width of the table.  If the sum of
+  ///   the column widths is less than [minPrintWidth], all columns will be made
+  ///   wider until the print width is equal to [minPrintWidth].
+  factory Echo(
+      {required String title,
+      required TestResults results,
+      int fieldPadding = 2,
+      int maxColWidth = 40,
+      int? minPrintWidth,
+      List<String>? fields}) {
+    fields = fields ?? [];
+    if (fields.isEmpty && results.isNotEmpty) {
+      fields.addAll(results.first.keys);
+    }
+    final fieldWidths = <String, int>{};
+    final fieldDigits = <String, int?>{};
+    for (final fieldName in fields) {
+      fieldDigits[fieldName] = results.fieldDigits(fieldName);
+    }
+    for (final fieldName in fields) {
+      fieldWidths[fieldName] = results.fieldWidth(
+          fieldName, fieldPadding, maxColWidth, fieldDigits[fieldName]);
+    }
+    final fieldsWidth = fieldWidths.values.sum;
+    var d = 0;
+    if (minPrintWidth != null && fieldsWidth < minPrintWidth) {
+      if (fieldsWidth < minPrintWidth) {
+        d = ((minPrintWidth - fieldsWidth) / fields.length).floor();
+      } else if (title.length > fieldsWidth) {
+        d = ((title.length - fieldsWidth) / fields.length).floor();
+      }
+      if (d > 0) {
+        for (final entry in fieldWidths.entries) {
+          fieldWidths[entry.key] = entry.value + d;
+        }
+      }
+    }
+
+    return Echo._(title, results, fields, fieldWidths, fieldDigits,
+        fieldPadding, maxColWidth);
+  }
+
+  Echo._(this.title, this.results, this.fields, this._fieldWidths,
+      this._fieldDigits, this.fieldPadding, this.maxColWidth);
+
   /// Print [results] to the console as a formatted table with [title] as
   /// title and [fields] as column headings.
   void printResults() {
@@ -106,10 +127,6 @@ class Echo {
     _printResults();
     _printSeparator();
   }
-
-  static const _kRowSeparator = '—';
-
-  static const _kColumnSeparator = '│';
 
   void _printSeparator([String separator = _kRowSeparator]) =>
       print(''.padRight(_printWidth, separator));
@@ -162,8 +179,9 @@ class Echo {
     final width = _fieldWidths[fieldName] as int;
     final value = result[fieldName];
     final columnIndex = fields.indexOf(fieldName);
-    final text =
-        value is Object ? value.toPrintString(_fieldDigits[fieldName]) : '';
+    final text = value is Object
+        ? value.toPrintString(maxColWidth, _fieldDigits[fieldName])
+        : '';
     return columnIndex == 0
         ? text.leftJustify(width, fieldPadding)
         : value is num || value is Duration
@@ -175,7 +193,9 @@ class Echo {
 }
 
 extension _ObjectValueExtension on Object {
-  String toPrintString([int? digits]) {
+  //
+  String toPrintString(int maxFieldWidth, int? digits) {
+    maxFieldWidth = maxFieldWidth < 3 ? 3 : maxFieldWidth;
     final value = this;
     var text = '';
     if (value is double) {
@@ -202,7 +222,9 @@ extension _ObjectValueExtension on Object {
     } else {
       text = value.toString();
     }
-    return text.length > 40 ? '${text.substring(0, 37)}...' : text;
+    return text.length > maxFieldWidth - 3
+        ? '${text.substring(0, maxFieldWidth - 3)}...'
+        : text;
   }
 }
 
@@ -246,14 +268,14 @@ extension _JsonExtension on Iterable<Map<String, dynamic>> {
   }
 
   /// Returns the width of the [fieldName] field
-  int fieldWidth(String fieldName, int padding) {
+  int fieldWidth(String fieldName, int padding, int maxColWidth, int? digits) {
     final widths = [fieldName.length];
     for (final result in this) {
       final value = result[fieldName];
       final text = value is double
           ? value.toString()
           : value is Object
-              ? value.toPrintString()
+              ? value.toPrintString(maxColWidth, digits)
               : '';
       widths.add(text.length);
     }
