@@ -5,6 +5,13 @@ All rights reserved.
 -->
 
 
+### 0.0.3-2
+
+#### New:
+- Added `SaveAs` class.
+- Added static method `SaveAs.text`.
+
+
 ### 0.0.3-1
 
 #### New:
