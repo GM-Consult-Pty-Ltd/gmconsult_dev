@@ -20,9 +20,6 @@ Skip to section:
 - [Issues](#issues)
 
 ## Overview
-
-TODO: Overview
-
 A collection of utilities used for unit testing and code generation.  May require knowledge of
 GM Consult coding practices and management systems:
 * Use the [Echo](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html) class to print a collection JSON documents to the console as a formatted table.
@@ -31,6 +28,8 @@ GM Consult coding practices and management systems:
 * Use the [JsonDataService](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html) class to quickly create and populate a asynchronous persisted datastore.
 
 ## Usage
+
+Fully worked [examples](https://pub.dev/packages/gmconsult_dev/example) are included in the package.
 
 In the `pubspec.yaml` of your flutter project, add the following dev dependency:
 
@@ -52,7 +51,7 @@ import 'package:gmconsult_dev/type_definitions.dart';
 import 'package:gmconsult_dev/test_data.dart';
 ```
 
-### [Echo](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html) class
+### Print to the console with [Echo](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html)
 
 Pass a collection of JSON documents to the [Echo()](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo/Echo.html) unnamed factory constructor and call [printResults](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo/printResults.html):
 ```dart
@@ -79,7 +78,7 @@ Echo(title: 'MY TEST NAME', results: json).printResults();
 //
 ```
 
-### [JsonDataService](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html) class
+### Mock a data service with [JsonDataService](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html)
 
 Initialize a [JsonDataService](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html), populate it and then read from it.
 
@@ -127,25 +126,25 @@ Initialize a [JsonDataService](https://pub.dev/documentation/gmconsult_dev/lates
 
 ```
 
-### [SaveAs]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) and [TestData]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html) classes
+### Save test results [SaveAs]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) using [TestData]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html)
 
-To save text, JSON or test results, just call the appropriate static method from the [SaveAs]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html)  class:
+To save text, JSON or test results, just call the appropriate static method from the [SaveAs]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) class. We are using datasets from the [TestData] class in the examples below.
 
 ```dart
 
-      // save text
+      // save text from a `TestData` dataset
       await SaveAs.text(
         fileName: 'test/data/google',
         text: TestData.text,
       );
 
-      // save a JSON document
+      // save a JSON document from a `TestData` dataset
       await SaveAs.json(
         fileName: 'test/data/google',
         json: TestData.json,
       );
 
-      // save your TestResults collection
+      // save your TestResults collection from a `TestData` dataset
       await SaveAs.results(
         fileName: 'test/data/results',
         results: TestData.stockData.values,

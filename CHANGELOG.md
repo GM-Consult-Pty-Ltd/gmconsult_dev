@@ -4,13 +4,21 @@ Copyright (c) 2022, GM Consult Pty Ltd
 All rights reserved. 
 -->
 
+*THIS PACKAGE IS **INTERNAL and UNLISTED**, AND SUBJECT TO BREAKING CHANGES WITHOUT NOTICE.*
+
+### 0.0.3
+
+#### New:
+- Added `SaveAs` class.
+- Added `TestData` class.
+
+Updated dependencies, tests, examples and documentation.
 
 ### 0.0.3-2
 
 #### New:
 - Added `SaveAs` class.
 - Added static method `SaveAs.text`.
-
 
 ### 0.0.3-1
 
