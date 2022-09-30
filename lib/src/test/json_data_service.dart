@@ -2,8 +2,6 @@
 // BSD 3-Clause License
 // All rights reserved
 
-// ignore_for_file: deprecated_member_use_from_same_package
-
 import 'package:gmconsult_dev/src/typedefs.dart';
 import 'package:hive/hive.dart';
 import 'dart:convert';

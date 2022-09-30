@@ -13,6 +13,16 @@ import 'dart:io';
 void main() {
   //
 
+  group('SaveAs', (() {
+    test('.saveText', (() {
+      final text = GMConsultDevSampleData
+          .stockData.entries.first.value['description'] as String;
+      final path = 'test/data/';
+      final fileName = 'description';
+      SaveAs.text(fileName: fileName, text: text, path: path);
+    }));
+  }));
+
   group('ECHO', () {
     final results = <Map<String, dynamic>>[];
     setUp(() {
