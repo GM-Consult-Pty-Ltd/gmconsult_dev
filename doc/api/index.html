@@ -67,10 +67,10 @@ All rights reserved.
 <p>A collection of utilities used for unit testing and code generation.  May require knowledge of
 GM Consult coding practices and management systems:</p>
 <ul>
-<li>Use the <a href="gmconsult_dev/Echo-class.html">Echo</a> class to print a collection JSON documents to the console as a formatted table.</li>
-<li>Use the <a href="gmconsult_dev/SaveAs-class.html">SaveAs</a> class to save text and JSON documents to disk.</li>
-<li>Use datasets from the <a href="test_data/TestData-class.html">TestData</a> class in your unit tests.</li>
-<li>Use the <a href="gmconsult_dev/JsonDataService-class.html">JsonDataService</a> class to quickly create and populate a asynchronous persisted datastore.</li>
+<li>Use the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html">Echo</a> class to print a collection JSON documents to the console as a formatted table.</li>
+<li>Use the <a href="gmconsult_dev/SaveAs-class.html">SaveAs</a>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) class to save text and JSON documents to disk.</li>
+<li>Use datasets from the <a href="test_data/TestData-class.html">TestData</a>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html) class in your unit tests.</li>
+<li>Use the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html">JsonDataService</a> class to quickly create and populate a asynchronous persisted datastore.</li>
 </ul>
 <h2 id="usage">Usage</h2>
 <p>In the <code>pubspec.yaml</code> of your flutter project, add the following dev dependency:</p>
@@ -78,10 +78,17 @@ GM Consult coding practices and management systems:</p>
   gmconsult_dev: &lt;latest_version&gt;
 </code></pre>
 <p>In your test file add the following import:</p>
-<pre class="language-dart"><code class="language-dart">import 'package:gmconsult_dev/gmconsult_dev.dart';
+<pre class="language-dart"><code class="language-dart">// import the `Echo`, `SaveAs` and `JsonDataService` classes
+import 'package:gmconsult_dev/gmconsult_dev.dart';
+
+// import the typedefs
+import 'package:gmconsult_dev/type_definitions.dart';
+
+// import the `TestData` datasets
+import 'package:gmconsult_dev/test_data.dart';
 </code></pre>
-<h4 id="print-test-results-with-echo-class">Print test results with Echo class</h4>
-<p>Pass a collection of JSON documents to the <a href="">Echo()</a> unnamed factory constructor and call <a href="">printResults</a>:</p>
+<h3 id="echohttpspubdevdocumentationgmconsult_devlatestgmconsult_devecho-classhtml-class"><a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html">Echo</a> class</h3>
+<p>Pass a collection of JSON documents to the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo/Echo.html">Echo()</a> unnamed factory constructor and call <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo/printResults.html">printResults</a>:</p>
 <pre class="language-dart"><code class="language-dart">
 // a sample list of JSON documents
 final json =[
@@ -104,7 +111,8 @@ Echo(title: 'MY TEST NAME', results: json).printResults();
 
 //
 </code></pre>
-<p>Alternatively, initialize a <code>JsonDataService</code>, populate it and then read from it.</p>
+<h3 id="jsondataservicehttpspubdevdocumentationgmconsult_devlatestgmconsult_devjsondataservice-classhtml-class"><a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html">JsonDataService</a> class</h3>
+<p>Initialize a <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html">JsonDataService</a>, populate it and then read from it.</p>
 <pre class="language-dart"><code class="language-dart">
   // get some data
   final jsonCollection = {
@@ -147,8 +155,8 @@ Echo(title: 'MY TEST NAME', results: json).printResults();
   // ———————————————————————————————————————————————————————————————————————————————————
 
 </code></pre>
-<h3 id="save-text-json-or-test-results-with-the-saveas-class-using-data-from-testdata">Save text, JSON or test results with the <a href="">SaveAs</a> class using data from <a href="">TestData</a></h3>
-<p>Just call the appropriate static method from the <a href="">SaveAs</a> class:</p>
+<h3 id="saveashttpspubdevdocumentationgmconsult_devlatestgmconsult_devsaveas-classhtml-and-testdatahttpspubdevdocumentationgmconsult_devlatestgmconsult_devtestdata-classhtml-classes"><a href="gmconsult_dev/SaveAs-class.html">SaveAs</a>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) and <a href="test_data/TestData-class.html">TestData</a>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html) classes</h3>
+<p>To save text, JSON or test results, just call the appropriate static method from the <a href="gmconsult_dev/SaveAs-class.html">SaveAs</a>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html)  class:</p>
 <pre class="language-dart"><code class="language-dart">
       // save text
       await SaveAs.text(
@@ -169,11 +177,9 @@ Echo(title: 'MY TEST NAME', results: json).printResults();
         keyBuilder: (json) =&gt; json['id'],
       );
 
-
-
 </code></pre>
 <h2 id="api">API</h2>
-<p>See the <a href="https://pub.dev/documentation/gmconsult_dev/latest/">API on pub.dev</a>.</p>
+<p>API documentation is available on <a href="https://pub.dev/documentation/gmconsult_dev/latest/">pub.dev</a>.</p>
 <h2 id="definitions">Definitions</h2>
 <p>None</p>
 <h2 id="references">References</h2>
@@ -244,7 +250,7 @@ standardize unit testing.
 <footer>
   <span class="no-break">
     gmconsult_dev
-      0.0.3-1
+      0.0.3-2
   </span>
 
   

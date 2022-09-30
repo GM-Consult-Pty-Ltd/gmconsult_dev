@@ -25,10 +25,10 @@ TODO: Overview
 
 A collection of utilities used for unit testing and code generation.  May require knowledge of
 GM Consult coding practices and management systems:
-* Use the [Echo] class to print a collection JSON documents to the console as a formatted table.
-* Use the [SaveAs] class to save text and JSON documents to disk.
-* Use datasets from the [TestData] class in your unit tests.
-* Use the [JsonDataService] class to quickly create and populate a asynchronous persisted datastore.
+* Use the [Echo](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html) class to print a collection JSON documents to the console as a formatted table.
+* Use the [SaveAs]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) class to save text and JSON documents to disk.
+* Use datasets from the [TestData]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html) class in your unit tests.
+* Use the [JsonDataService](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html) class to quickly create and populate a asynchronous persisted datastore.
 
 ## Usage
 
@@ -42,12 +42,19 @@ dev_dependencies:
 In your test file add the following import:
 
 ```dart
+// import the `Echo`, `SaveAs` and `JsonDataService` classes
 import 'package:gmconsult_dev/gmconsult_dev.dart';
+
+// import the typedefs
+import 'package:gmconsult_dev/type_definitions.dart';
+
+// import the `TestData` datasets
+import 'package:gmconsult_dev/test_data.dart';
 ```
 
-#### Print test results with Echo class
+### [Echo](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html) class
 
-Pass a collection of JSON documents to the [Echo()]() unnamed factory constructor and call [printResults]():
+Pass a collection of JSON documents to the [Echo()](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo/Echo.html) unnamed factory constructor and call [printResults](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo/printResults.html):
 ```dart
 
 // a sample list of JSON documents
@@ -72,7 +79,9 @@ Echo(title: 'MY TEST NAME', results: json).printResults();
 //
 ```
 
-Alternatively, initialize a `JsonDataService`, populate it and then read from it.
+### [JsonDataService](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html) class
+
+Initialize a [JsonDataService](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html), populate it and then read from it.
 
 ```dart
 
@@ -118,9 +127,9 @@ Alternatively, initialize a `JsonDataService`, populate it and then read from it
 
 ```
 
-### Save text, JSON or test results with the [SaveAs]() class using data from [TestData]()
+### [SaveAs]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) and [TestData]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html) classes
 
-Just call the appropriate static method from the [SaveAs]() class:
+To save text, JSON or test results, just call the appropriate static method from the [SaveAs]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html)  class:
 
 ```dart
 
@@ -143,13 +152,11 @@ Just call the appropriate static method from the [SaveAs]() class:
         keyBuilder: (json) => json['id'],
       );
 
-
-
 ```
 
 ## API
 
-See the [API on pub.dev](https://pub.dev/documentation/gmconsult_dev/latest/).
+API documentation is available on [pub.dev](https://pub.dev/documentation/gmconsult_dev/latest/).
 
 ## Definitions
 
