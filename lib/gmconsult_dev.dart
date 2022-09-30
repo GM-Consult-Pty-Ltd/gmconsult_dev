@@ -6,4 +6,6 @@
 /// standardize unit testing.
 library gmconsult_dev;
 
-export 'src/_index.dart';
+export 'src/test/echo.dart';
+export 'src/test/json_data_service.dart';
+export 'src/test/save_as.dart';

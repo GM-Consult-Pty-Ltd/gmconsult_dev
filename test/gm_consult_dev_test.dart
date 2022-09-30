@@ -7,7 +7,7 @@
 import 'dart:convert';
 
 import 'package:gmconsult_dev/gmconsult_dev.dart';
-import 'package:gmconsult_dev/src/typedefs.dart';
+import 'package:gmconsult_dev/type_definitions.dart';
 import 'package:gmconsult_dev/test_data.dart';
 import 'package:test/test.dart';
 
@@ -17,7 +17,7 @@ import 'dart:io';
 void main() {
   //
 
-  group('SaveAs', (() async {
+  group('SaveAs', (() {
     //
 
     test('.text', (() async {
@@ -76,8 +76,6 @@ void main() {
   group('JsonDataService', (() {
     test('HiveJsonService.batchUpsert(sampleStocks)', (() async {
 //   //
-
-      // final TestResults results = [];
 
       final service = await JsonDataService.hydrate(
           '${Directory.current.path}\\test\\data', 'sampleStocks');
