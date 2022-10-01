@@ -6,6 +6,10 @@ All rights reserved.
 
 *THIS PACKAGE IS **INTERNAL and UNLISTED**, AND SUBJECT TO BREAKING CHANGES WITHOUT NOTICE.*
 
+### 0.0.4
+
+Stable release.
+
 ### 0.0.4-4
 
 Updated documentation.
