@@ -128,7 +128,7 @@ Initialize a [JsonDataService](https://pub.dev/documentation/gmconsult_dev/lates
 
 ### Save test results [SaveAs]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) using [TestData]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html)
 
-To save text, JSON or test results, just call the appropriate static method from the [SaveAs]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) class. We are using datasets from the [TestData] class in the examples below.
+To save text, JSON or test results, just call the appropriate static method from the [SaveAs]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) class. We are using datasets from the [TestData]https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html) class in the examples below.
 
 ```dart
 
