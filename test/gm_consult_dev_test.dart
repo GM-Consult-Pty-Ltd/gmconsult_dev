@@ -17,33 +17,33 @@ import 'dart:io';
 void main() {
   //
 
-  group('SaveAs', (() {
-    //
+  // group('SaveAs', (() {
+  //   //
 
-    test('.text', (() async {
-      await SaveAs.text(
-        fileName: 'test/data/google',
-        text: TestData.text,
-      );
-    }));
+  //   test('.text', (() async {
+  //     await SaveAs.text(
+  //       fileName: 'test/data/google',
+  //       text: TestData.text,
+  //     );
+  //   }));
 
-    test('.json', (() async {
-      await SaveAs.json(
-        fileName: 'test/data/google',
-        json: TestData.json,
-      );
-    }));
+  //   test('.json', (() async {
+  //     await SaveAs.json(
+  //       fileName: 'test/data/google',
+  //       json: TestData.json,
+  //     );
+  //   }));
 
-    test('.results', (() async {
-      await SaveAs.results(
-        fileName: 'test/data/results',
-        results: TestData.stockData.values,
-        keyBuilder: (json) => json['id'],
-      );
-    }));
+  //   test('.results', (() async {
+  //     await SaveAs.results(
+  //       fileName: 'test/data/results',
+  //       results: TestData.stockData.values,
+  //       keyBuilder: (json) => json['id'],
+  //     );
+  //   }));
 
-    //
-  }));
+  //   //
+  // }));
 
   group('ECHO', () {
     final results = <Map<String, dynamic>>[];

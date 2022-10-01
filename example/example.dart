@@ -23,35 +23,35 @@ void main() async {
   // print the jsonCollection with the `Echo` class
   _printJson(jsonCollection);
 
-  // save data to files using static methods of the `SaveAs` class
-  await _saveAsExamples();
+  // // save data to files using static methods of the `SaveAs` class
+  // await _saveAsExamples();
 
   // create a [JsonDataService] using a Hive Box and populate it with
   // jsonCollection
   await _jsonDataServiceExample(jsonCollection);
 }
 
-/// Save data to files using static methods of the `SaveAs` class.
-Future<void> _saveAsExamples() async {
-  // save text
-  await SaveAs.text(
-    fileName: 'example/data/google',
-    text: TestData.text,
-  );
+// /// Save data to files using static methods of the `SaveAs` class.
+// Future<void> _saveAsExamples() async {
+//   // save text
+//   await SaveAs.text(
+//     fileName: 'example/data/google',
+//     text: TestData.text,
+//   );
 
-  // save a JSON document
-  await SaveAs.json(
-    fileName: 'example/data/google',
-    json: TestData.json,
-  );
+//   // save a JSON document
+//   await SaveAs.json(
+//     fileName: 'example/data/google',
+//     json: TestData.json,
+//   );
 
-  // save your TestResults collection
-  await SaveAs.results(
-    fileName: 'example/data/results',
-    results: TestData.stockData.values,
-    keyBuilder: (json) => json['id'],
-  );
-}
+//   // save your TestResults collection
+//   await SaveAs.results(
+//     fileName: 'example/data/results',
+//     results: TestData.stockData.values,
+//     keyBuilder: (json) => json['id'],
+//   );
+// }
 
 /// Example of printing JSON data with the [Echo] class.
 void _printJson(Map<String, Map<String, Object>> jsonCollection) {

@@ -67,7 +67,7 @@ All rights reserved.
 GM Consult coding practices and management systems:</p>
 <ul>
 <li>Use the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html">Echo</a> class to print a collection JSON documents to the console as a formatted table.</li>
-<li>Use the <a href="gmconsult_dev/SaveAs-class.html">SaveAs</a>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) class to save text and JSON documents to disk.</li>
+<li>Use the <code>SaveAs</code>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) class to save text and JSON documents to disk.</li>
 <li>Use datasets from the <a href="test_data/TestData-class.html">TestData</a>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html) class in your unit tests.</li>
 <li>Use the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html">JsonDataService</a> class to quickly create and populate a asynchronous persisted datastore.</li>
 </ul>
@@ -155,8 +155,8 @@ Echo(title: 'MY TEST NAME', results: json).printResults();
   // ———————————————————————————————————————————————————————————————————————————————————
 
 </code></pre>
-<h3 id="save-test-results-saveashttpspubdevdocumentationgmconsult_devlatestgmconsult_devsaveas-classhtml-using-testdatahttpspubdevdocumentationgmconsult_devlatestgmconsult_devtestdata-classhtml">Save test results <a href="gmconsult_dev/SaveAs-class.html">SaveAs</a>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) using <a href="test_data/TestData-class.html">TestData</a>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html)</h3>
-<p>To save text, JSON or test results, just call the appropriate static method from the <a href="gmconsult_dev/SaveAs-class.html">SaveAs</a>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) class. We are using datasets from the <a href="test_data/TestData-class.html">TestData</a> class in the examples below.</p>
+<h3 id="save-test-results-saveashttpspubdevdocumentationgmconsult_devlatestgmconsult_devsaveas-classhtml-using-testdatahttpspubdevdocumentationgmconsult_devlatestgmconsult_devtestdata-classhtml">Save test results <code>SaveAs</code>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) using <a href="test_data/TestData-class.html">TestData</a>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html)</h3>
+<p>To save text, JSON or test results, just call the appropriate static method from the <code>SaveAs</code>https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) class. We are using datasets from the <a href="test_data/TestData-class.html">TestData</a> class in the examples below.</p>
 <pre class="language-dart"><code class="language-dart">
       // save text from a `TestData` dataset
       await SaveAs.text(
