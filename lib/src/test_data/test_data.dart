@@ -11,17 +11,17 @@ abstract class TestData {
 
   /// A sample dataset of sharemarket related JSON documents.
   ///
-  /// Returns a Map<String, Map<String, dynamic>>
+  /// Returns a `Map<String, Map<String, dynamic>>`.
   static const stockNews = _sampleNews;
 
   /// A small collection of stock data JSON documents for
   /// - AAPL:XNGS,
   /// - GOOG:XNGS,
-  /// - GOOGL:XNGS,
-  /// - TSLA:XNGS,
+  /// - GOOGL:XNGS, and
+  /// - TSLA:XNGS.
   static const stockData = _sampleStocks;
 
-  /// A long String with line breaks.
+  /// A long [String] with line breaks.
   static String get text => json['description'] as String;
 
   /// A single JSON document.
