@@ -14,8 +14,44 @@ import 'package:test/test.dart';
 import 'dart:math';
 import 'dart:io';
 
+import 'keys.dart';
+
 void main() {
   //
+
+  group('API', (() {
+    //
+
+    test('.get', (() async {
+      final path = 'api/v2/entries/en-us/api';
+      final queryParameters = {'strictMatch': 'false'};
+      final headers = Keys.oxfordDictionaries;
+      final host = 'od-api.oxforddictionaries.com';
+      final json = await API.get(
+          host: host,
+          path: path,
+          queryParameters: queryParameters,
+          headers: headers,
+          isHttps: true);
+      var definition = '';
+      final results = json['results'];
+      if (results is Iterable) {
+        definition = ((((results.first['lexicalEntries']).first['entries'])
+                    .first['senses'])
+                .first['definitions'])
+            .first
+            .toString();
+      }
+      print('Endpoint:           ${json['_%path']}/${json['_%path']}');
+      print('Query parameters:   ${json['_%query']}');
+      print('Headers:            ${json['_%headers']}');
+      print('Response code:      ${json['_%status']}');
+      print('Metadata:           ${json['metadata']}');
+      print('Definition:         $definition');
+    }));
+
+    //
+  }));
 
   group('SaveAs', (() {
     //

@@ -10,6 +10,10 @@ import 'package:gmconsult_dev/test_data.dart';
 
 void main() async {
   //
+
+  // get some JSON from an API
+  await _getHttp();
+
   const jsonCollection = {
     'term0': {'term': 'bodrer', 'dL': 0.0, 'cLs': 1.0},
     'term1': {'term': 'board', 'dL': 0.26303837, 'cLs': 0.736},
@@ -51,6 +55,30 @@ Future<void> _saveAsExamples() async {
     results: TestData.stockData.values,
     keyBuilder: (json) => json['id'],
   );
+}
+
+/// Get some JSON from an [API].
+Future<void> _getHttp() async {
+//
+  // Get some JSON data from a public API endpoint
+  final json = await API.get(
+      host: 'boredapi.com',
+      path: 'api/activity',
+      queryParameters: {'key': '5881028'},
+      // headers: headers,
+      isHttps: true);
+
+  // print the results
+  print('Request URL:        ${json['_%url']}');
+  print('Response code:      ${json['_%status']}');
+  print('Activity:           ${json['activity']}');
+
+// prints to the console:
+//    Request URL:        https://boredapi.com/api/activity?key=5881028
+//    Response code:      200
+//    Activity:           Learn a new programming language
+
+//
 }
 
 /// Example of printing JSON data with the [Echo] class.

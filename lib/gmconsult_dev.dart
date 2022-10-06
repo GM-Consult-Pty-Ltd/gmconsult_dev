@@ -6,6 +6,8 @@
 /// standardize unit testing.
 library gmconsult_dev;
 
-export 'src/test/echo.dart';
-export 'src/test/json_data_service.dart';
-export 'src/test/save_as.dart';
+export 'src/test/echo.dart' show Echo;
+export 'src/test/json_data_service.dart'
+    show JsonDataService, HiveJsonService, HiveJsonServiceMixin;
+export 'src/test/save_as.dart' show SaveAs;
+export 'src/test/json_api.dart' show API;

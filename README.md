@@ -9,7 +9,7 @@ All rights reserved.
 [![GM Consult Pty Ltd](https://raw.githubusercontent.com/GM-Consult-Pty-Ltd/gmconsult_dev/main/assets/images/gmconsult_dev_header.png?raw=true "GM Consult Pty Ltd")](https://github.com/GM-Consult-Pty-Ltd)
 ## **Generate code and lubricate / standardize unit testing.**
 
-*THIS PACKAGE IS **INTERNAL and UNLISTED**, AND SUBJECT TO BREAKING CHANGES WITHOUT NOTICE.*
+*THIS PACKAGE IS A PROPRIETARY, UNLISTED RESOURCE AND SUBJECT TO BREAKING CHANGES WITHOUT NOTICE.*
 
 Skip to section:
 - [Overview](#overview)
@@ -26,6 +26,7 @@ GM Consult coding practices and management systems:
 * Use the [SaveAs](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) class to save text and JSON documents to disk.
 * Use datasets from the [TestData](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html) class in your unit tests.
 * Use the [JsonDataService](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html) class to quickly create and populate a asynchronous persisted datastore.
+* Use the static methods from [API](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) to `GET` or `POST` from/to a RESTful API.
 
 ## Usage
 
@@ -44,10 +45,10 @@ In your test file add the following import:
 // import the `Echo`, `SaveAs` and `JsonDataService` classes
 import 'package:gmconsult_dev/gmconsult_dev.dart';
 
-// import the typedefs
+// import the typedefs if needed
 import 'package:gmconsult_dev/type_definitions.dart';
 
-// import the `TestData` datasets
+// import the `TestData` datasets if needed
 import 'package:gmconsult_dev/test_data.dart';
 ```
 
@@ -151,6 +152,28 @@ To save text, JSON or test results, just call the appropriate static method from
         keyBuilder: (json) => json['id'],
       );
 
+```
+
+Use the static methods from [API](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) to `GET` some data from a RESTful API:
+
+```dart
+  // Get some JSON data from a public API endpoint
+  final json = await API.get(
+      host: 'boredapi.com',
+      path: 'api/activity',
+      queryParameters: {'key': '5881028'},
+      // headers: headers,
+      isHttps: true);
+
+  // print the results
+  print('Request URL:        ${json['_%url']}');
+  print('Response code:      ${json['_%status']}');
+  print('Activity:           ${json['activity']}');
+
+  // prints to the console:
+  //    Request URL:        https://boredapi.com/api/activity?key=5881028
+  //    Response code:      200
+  //    Activity:           Learn a new programming language
 ```
 
 ## API

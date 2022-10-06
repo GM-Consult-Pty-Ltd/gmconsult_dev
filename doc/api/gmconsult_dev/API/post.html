@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the post method from the API class, for the Dart programming language.">
+  <title>post method - API class - gmconsult_dev library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+
+  
+</head>
+
+
+<body data-base-href="../../"
+      data-using-base-href="false">
+
+<div id="overlay-under-drawer"></div>
+
+<header id="title">
+  <button id="sidenav-left-toggle" type="button">&nbsp;</button>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">gmconsult_dev</a></li>
+    <li><a href="../../gmconsult_dev/gmconsult_dev-library.html">gmconsult_dev</a></li>
+    <li><a href="../../gmconsult_dev/API-class.html">API</a></li>
+    <li class="self-crumb">post method</li>
+  </ol>
+  <div class="self-name">post</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<main>
+
+
+  <div id="dartdoc-main-content" class="main-content">
+      <div>
+<h1><span class="kind-method">post</span> method 
+    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+
+<span class="returntype"><a href="https://api.flutter.dev/flutter/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../type_definitions/JSON.html">JSON</a>?</span>&gt;</span></span>
+<span class="name ">post</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="post-param-host">{<span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">host</span>, </span></li>
+<li><span class="parameter" id="post-param-path"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a>?</span> <span class="parameter-name">path</span>, </span></li>
+<li><span class="parameter" id="post-param-queryParameters"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">queryParameters</span>, </span></li>
+<li><span class="parameter" id="post-param-headers"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/Map-class.html">Map</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>, <span class="type-parameter"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>&gt;</span>?</span> <span class="parameter-name">headers</span>, </span></li>
+<li><span class="parameter" id="post-param-body"><span class="type-annotation"><a href="../../type_definitions/JSON.html">JSON</a>?</span> <span class="parameter-name">body</span>, </span></li>
+<li><span class="parameter" id="post-param-isHttps"><span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">isHttps</span> = <span class="default-value">true</span>}</span></li>
+</ol>)
+
+      
+
+    </section>
+    
+<section class="desc markdown">
+  <p>Posts JSON <code>body</code> to the HTTP endpoint using the<code>host</code>,  <code>path</code>,
+<code>queryParameters</code> and <code>headers</code> using HTTPS if <code>isHttps</code>.</p>
+<p>If the response body is not a <code>Map&lt;String, dynamic&gt;</code>, the body will
+be wrapped in a hashmap in a field with the key "data".</p>
+<p>The HTTP request/response properties are added to the JSON with the
+following keys:</p>
+<ul>
+<li>the "_%path" is the endpoint path string;</li>
+<li>the "_%status" is the response statusCode;</li>
+<li>the "_%query" is a hashmap containing the request query parameters;</li>
+<li>the "_%headers" is a hashmap containing the request headers;</li>
+</ul>
+<p>If an error occurs the "data" field will contain the error object.</p>
+<p>If no response is received, the "data" field contains a generic
+error message and the status code is <code>-1</code>.</p>
+</section>
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static Future&lt;JSON?&gt; post(
+    {required String host,
+    String? path,
+    Map&lt;String, String&gt;? queryParameters,
+    Map&lt;String, String&gt;? headers,
+    JSON? body,
+    bool isHttps = true}) async {
+  final uri = _uri(
+      host: host,
+      path: path,
+      queryParameters: queryParameters,
+      isHttps: isHttps);
+  final response =
+      await http.post(uri, headers: headers, body: jsonEncode(body));
+
+  if (response.statusCode == 200) {
+    &#47;&#47; If the server did return a 200 OK response, convert to JSON and
+    &#47;&#47; return the result.
+    return _decodeJson(response.body, uri, headers, response.statusCode);
+  } else {
+    &#47;&#47; If the server did not return a 200 OK response,
+    &#47;&#47; then throw an exception.
+    throw Exception(&#39;The server failed to respond in a timely manner&#39;);
+  }
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+  <li><a href="../../index.html">gmconsult_dev</a></li>
+  <li><a href="../../gmconsult_dev/gmconsult_dev-library.html">gmconsult_dev</a></li>
+  <li><a href="../../gmconsult_dev/API-class.html">API</a></li>
+  <li class="self-crumb">post method</li>
+</ol>
+
+
+    <h5>API class</h5>
+    <ol>
+
+        <li class="section-title"><a href="../../gmconsult_dev/API-class.html#constructors">Constructors</a></li>
+          <li><a href="../../gmconsult_dev/API/API.html">API</a></li>
+
+
+    <li class="section-title inherited">
+      <a href="../../gmconsult_dev/API-class.html#instance-properties">Properties</a>
+    </li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/hashCode.html">hashCode</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/runtimeType.html">runtimeType</a></li>
+
+    <li class="section-title"><a href="../../gmconsult_dev/API-class.html#instance-methods">Methods</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
+
+    <li class="section-title inherited"><a href="../../gmconsult_dev/API-class.html#operators">Operators</a></li>
+    <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/operator_equals.html">operator ==</a></li>
+
+
+
+        <li class="section-title"><a href="../../gmconsult_dev/API-class.html#static-methods">Static methods</a></li>
+          <li><a href="../../gmconsult_dev/API/get.html">get</a></li>
+          <li><a href="../../gmconsult_dev/API/post.html">post</a></li>
+
+</ol>
+
+  </div><!--/.sidebar-offcanvas-->
+
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  </div><!--/.sidebar-offcanvas-->
+
+</main>
+
+<footer>
+  <span class="no-break">
+    gmconsult_dev
+      0.0.5
+  </span>
+
+  
+</footer>
+
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/script.js?v1"></script>
+
+
+
+</body>
+
+</html>
+
