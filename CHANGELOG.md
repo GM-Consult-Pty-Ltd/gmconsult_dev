@@ -6,6 +6,16 @@ All rights reserved.
 
 *THIS PACKAGE IS A PROPRIETARY, UNLISTED RESOURCE AND SUBJECT TO BREAKING CHANGES WITHOUT NOTICE.*
 
+### 0.0.6
+
+#### New:
+* Added `Echo.separator` method.
+
+#### Updated
+* Dependencies.
+* Tests.
+* Documentation.
+
 ### 0.0.5
 
 #### New:

@@ -7,10 +7,15 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:gmconsult_dev/src/typedefs.dart';
 
-/// Test utility class to echo your test results to the console.
+/// Test utility class to echo your JSON test results to the console as a
+/// formatted table with a [title] as title and the field names of the JSON
+/// results as column headings.
 ///
-/// Print list of JSON documents [results] to the console as a formatted table
-/// with [title] as title and [fields] as column headings.
+/// Call the [printResults] method to print [results] to the console:
+/// - [results] is a collection of JSON documents with the same [fields];
+/// - [fields] is an ordered collection of the field names in [results] that
+///   will be shown in the output table. The table columns are ordered in the
+///   same order as [fields].
 ///
 /// The column widths are calculated on the fly from the maximum width of any
 /// value. The first column is left-justified. Subsequent columns are right
@@ -22,13 +27,6 @@ import 'package:gmconsult_dev/src/typedefs.dart';
 ///
 /// For any other formatting of values pre-format the value as [String] before
 /// adding to [results].
-///
-/// that prints a list of JSON documents to the console as a
-/// formatted table. Call the [printResults] method to print [results] to the
-/// console:
-/// - [results] is a collection of JSON documents with the same [fields];
-/// - [fields] is an ordered collection field names in [results]. The output
-///   table columns are ordered in the same order as [fields].
 class Echo {
   //
 
@@ -117,17 +115,19 @@ class Echo {
   /// Print [results] to the console as a formatted table with [title] as
   /// title and [fields] as column headings.
   void printResults() {
-    _printSeparator();
+    separator();
     _printTitle();
-    _printSeparator('_');
+    separator('_');
     _printHeaders();
-    _printSeparator();
+    separator();
     _printResults();
-    _printSeparator();
+    separator();
   }
 
-  void _printSeparator([String separator = _kRowSeparator]) =>
-      print(''.padRight(_printWidth, separator));
+  /// Print a separator
+  void separator([String char = _kRowSeparator]) {
+    print(''.padRight(_printWidth, char));
+  }
 
   int get _printWidth {
     final fieldsWidth = _fieldWidths.values.sum + _fieldWidths.length + 1;

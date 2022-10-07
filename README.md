@@ -20,6 +20,7 @@ Skip to section:
 - [Issues](#issues)
 
 ## Overview
+
 A collection of utilities used for unit testing and code generation.  May require knowledge of
 GM Consult coding practices and management systems:
 * Use the [Echo](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html) class to print a collection JSON documents to the console as a formatted table.
@@ -154,7 +155,7 @@ To save text, JSON or test results, just call the appropriate static method from
 
 ```
 
-Use the static methods from [API](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) to `GET` some data from a RESTful API:
+Use the static methods from [API](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/API-class.html) to `GET` some data from a RESTful API:
 
 ```dart
   // Get some JSON data from a public API endpoint

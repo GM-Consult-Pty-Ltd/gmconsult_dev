@@ -5,13 +5,10 @@
 @Timeout(Duration(minutes: 10))
 
 import 'dart:convert';
-
 import 'package:gmconsult_dev/gmconsult_dev.dart';
 import 'package:gmconsult_dev/type_definitions.dart';
 import 'package:gmconsult_dev/test_data.dart';
 import 'package:test/test.dart';
-
-import 'dart:math';
 import 'dart:io';
 
 import 'keys.dart';
@@ -82,21 +79,6 @@ void main() {
   }));
 
   group('ECHO', () {
-    final results = <Map<String, dynamic>>[];
-    setUp(() {
-      var i = 0;
-      for (final entry in TestData.jsonList) {
-        results.add({
-          'Term': entry['other'],
-          'Length Similarity': entry['cLs'],
-          'Date': DateTime.now().subtract(Duration(days: i)),
-          'Elapsed Time':
-              Duration(milliseconds: (99 / (i + 1) * pow(50, i)).floor())
-        });
-        i++;
-      }
-    });
-
     test('.printResults(results)', (() {
       Echo(
           title: 'PRINT JSON: (Echo.printResults)',

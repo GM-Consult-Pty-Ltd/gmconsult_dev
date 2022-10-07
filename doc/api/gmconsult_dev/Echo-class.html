@@ -51,9 +51,16 @@
 
     
 <section class="desc markdown">
-  <p>Test utility class to echo your test results to the console.</p>
-<p>Print list of JSON documents <a href="../gmconsult_dev/Echo/results.html">results</a> to the console as a formatted table
-with <a href="../gmconsult_dev/Echo/title.html">title</a> as title and <a href="../gmconsult_dev/Echo/fields.html">fields</a> as column headings.</p>
+  <p>Test utility class to echo your JSON test results to the console as a
+formatted table with a <a href="../gmconsult_dev/Echo/title.html">title</a> as title and the field names of the JSON
+results as column headings.</p>
+<p>Call the <a href="../gmconsult_dev/Echo/printResults.html">printResults</a> method to print <a href="../gmconsult_dev/Echo/results.html">results</a> to the console:</p>
+<ul>
+<li><a href="../gmconsult_dev/Echo/results.html">results</a> is a collection of JSON documents with the same <a href="../gmconsult_dev/Echo/fields.html">fields</a>;</li>
+<li><a href="../gmconsult_dev/Echo/fields.html">fields</a> is an ordered collection of the field names in <a href="../gmconsult_dev/Echo/results.html">results</a> that
+will be shown in the output table. The table columns are ordered in the
+same order as <a href="../gmconsult_dev/Echo/fields.html">fields</a>.</li>
+</ul>
 <p>The column widths are calculated on the fly from the maximum width of any
 value. The first column is left-justified. Subsequent columns are right
 justified if the value is <a href="https://api.flutter.dev/flutter/dart-core/num-class.html">num</a>, and centered if any other type.</p>
@@ -62,14 +69,6 @@ except for <a href="https://api.flutter.dev/flutter/dart-core/double-class.html"
 after calculating three points of precision for all values in the field.</p>
 <p>For any other formatting of values pre-format the value as <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a> before
 adding to <a href="../gmconsult_dev/Echo/results.html">results</a>.</p>
-<p>that prints a list of JSON documents to the console as a
-formatted table. Call the <a href="../gmconsult_dev/Echo/printResults.html">printResults</a> method to print <a href="../gmconsult_dev/Echo/results.html">results</a> to the
-console:</p>
-<ul>
-<li><a href="../gmconsult_dev/Echo/results.html">results</a> is a collection of JSON documents with the same <a href="../gmconsult_dev/Echo/fields.html">fields</a>;</li>
-<li><a href="../gmconsult_dev/Echo/fields.html">fields</a> is an ordered collection field names in <a href="../gmconsult_dev/Echo/results.html">results</a>. The output
-table columns are ordered in the same order as <a href="../gmconsult_dev/Echo/fields.html">fields</a>.</li>
-</ul>
 </section>
 
 
@@ -207,6 +206,19 @@ title and <a href="../gmconsult_dev/Echo/fields.html">fields</a> as column headi
 
 </dd>
 
+        <dt id="separator" class="callable">
+  <span class="name"><a href="../gmconsult_dev/Echo/separator.html">separator</a></span><span class="signature">(<wbr><span class="parameter" id="separator-param-char">[<span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span> <span class="parameter-name">char</span> = <span class="default-value">_kRowSeparator</span>]</span>)
+    <span class="returntype parameter">&#8594; void</span>
+  </span>
+  
+
+</dt>
+<dd>
+  Print a separator
+  
+
+</dd>
+
         <dt id="toString" class="callable inherited">
   <span class="name"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></span><span class="signature">(<wbr>)
     <span class="returntype parameter">&#8594; <a href="https://api.flutter.dev/flutter/dart-core/String-class.html">String</a></span>
@@ -306,6 +318,7 @@ title and <a href="../gmconsult_dev/Echo/fields.html">fields</a> as column headi
     <li class="section-title"><a href="../gmconsult_dev/Echo-class.html#instance-methods">Methods</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
     <li><a href="../gmconsult_dev/Echo/printResults.html">printResults</a></li>
+    <li><a href="../gmconsult_dev/Echo/separator.html">separator</a></li>
     <li class="inherited"><a href="https://api.flutter.dev/flutter/dart-core/Object/toString.html">toString</a></li>
 
     <li class="section-title inherited"><a href="../gmconsult_dev/Echo-class.html#operators">Operators</a></li>
@@ -323,7 +336,7 @@ title and <a href="../gmconsult_dev/Echo/fields.html">fields</a> as column headi
 <footer>
   <span class="no-break">
     gmconsult_dev
-      0.0.5
+      0.0.6
   </span>
 
   
