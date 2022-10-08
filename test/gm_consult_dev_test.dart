@@ -78,14 +78,14 @@ void main() {
     //
   }));
 
-  group('ECHO', () {
+  group('Console.out', () {
     test('.printResults(results)', (() {
-      Echo(
-          title: 'PRINT JSON: (Echo.printResults)',
+      Console.out(
+          title: 'PRINT JSON: (Console.printResults)',
           maxColWidth: 160,
           minPrintWidth: 200,
           results: TestData.stockData.values.toList(),
-          fields: ['ticker', 'name', 'description']).printResults();
+          fields: ['ticker', 'name', 'description']);
     }));
 
     //
@@ -109,10 +109,10 @@ void main() {
           (await service.batchRead(['AAPL:XNGS', 'TSLA:XNGS'])).values.toList();
 
       // print the records
-      Echo(
+      Console.out(
           title: 'STOCKS',
           results: results,
-          fields: ['hashTag', 'name', 'description']).printResults();
+          fields: ['hashTag', 'name', 'description']);
 
       // close the service, releasing the resources
       await service.close();
@@ -130,10 +130,10 @@ void main() {
           (await service.batchRead(['Alphabet', 'Tesla', 'Intel', 'NVIDIA']))
               .values);
 
-      Echo(
+      Console.out(
           title: 'HASHTAGS',
           results: results,
-          fields: ['hashTag', 'name', 'timestamp']).printResults();
+          fields: ['hashTag', 'name', 'timestamp']);
 
       await service.close();
     }));
@@ -149,10 +149,10 @@ void main() {
               .batchRead(['AAPL:XNGS', 'TSLA:XNGS', 'INTC:XNGS', 'F:XNYS']))
           .values);
 
-      Echo(
+      Console.out(
           title: 'SECURITIES',
           results: results,
-          fields: ['ticker', 'hashTag', 'name', 'timestamp']).printResults();
+          fields: ['ticker', 'hashTag', 'name', 'timestamp']);
 
       await service.close();
     }));
@@ -176,7 +176,7 @@ void main() {
         });
       }
 
-      Echo(title: 'COUNTRIES', results: results).printResults();
+      Console.out(title: 'COUNTRIES', results: results);
 
       await service.close();
     }));

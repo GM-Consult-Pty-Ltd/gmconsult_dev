@@ -2,10 +2,17 @@
 // BSD 3-Clause License
 // All rights reserved
 
-// ignore: unused_import
-import 'package:gmconsult_dev/gmconsult_dev.dart';
+// ignore_for_file: unused_import
+
 import 'dart:io';
 
+// import the `Console`, `SaveAs` and `JsonDataService` classes
+import 'package:gmconsult_dev/gmconsult_dev.dart';
+
+// import the typedefs if needed
+import 'package:gmconsult_dev/type_definitions.dart';
+
+// import the `TestData` datasets if needed
 import 'package:gmconsult_dev/test_data.dart';
 
 void main() async {
@@ -24,7 +31,7 @@ void main() async {
     'term6': {'term': 'bored', 'dL': 0.2630354, 'cLs': 0.7369766},
   };
 
-  // print the jsonCollection with the `Echo` class
+  // print the jsonCollection with the `Console.out` static method
   _printJson(jsonCollection);
 
   // save data to files using static methods of the `SaveAs` class
@@ -68,42 +75,58 @@ Future<void> _getHttp() async {
       // headers: headers,
       isHttps: true);
 
+  // print a seperator 70 charcters wide
+  Console.seperator(70);
+  // prints
+  // ======================================================================
+
   // print the results
   print('Request URL:        ${json['_%url']}');
   print('Response code:      ${json['_%status']}');
   print('Activity:           ${json['activity']}');
 
-// prints to the console:
-//    Request URL:        https://boredapi.com/api/activity?key=5881028
-//    Response code:      200
-//    Activity:           Learn a new programming language
+// prints:
+//
+// MY TEST NAME
+// ╔═══════════╤═════════════════╤════════════════╗
+// ║  term     │       dL        │       cLs      ║
+// ╟───────────┼─────────────────┼────────────────╢
+// ║  bodrer   │        0.00000  │       1.00000  ║
+// ║  board    │        0.26304  │       0.73600  ║
+// ║  border   │        0.00000  │       1.00000  ║
+// ║  boarder  │        0.22240  │       0.77761  ║
+// ║  brother  │        0.22239  │       0.77761  ║
+// ║  broad    │        0.26304  │       0.73698  ║
+// ║  bored    │        0.26304  │       0.73698  ║
+// ╚═══════════╧═════════════════╧════════════════╝
 
 //
 }
 
-/// Example of printing JSON data with the [Echo] class.
+/// Example of printing JSON data with the [Console] class.
 void _printJson(Map<String, Map<String, Object>> jsonCollection) {
   //
 
-  // pass a title and results to a Echo instance and call printResults
-  Echo(title: 'MY TEST NAME', results: jsonCollection.values.toList())
-      .printResults();
+  /// print a horizontal double line.
+  Console.seperator(80, '=');
+
+  // pass a title and results to the Console.out static method to print results
+  Console.out(title: 'MY TEST NAME', results: jsonCollection.values.toList());
 
   // prints:
 
-// —————————————————————————————————————————————————————————————————————————————————
 // MY TEST NAME
-// _________________________________________________________________________________
-// │  term                │             dL             │            cLs            │
-// —————————————————————————————————————————————————————————————————————————————————
-// │  bodrer              │                   0.00000  │                  1.00000  │
-// │  board               │                   0.26304  │                  0.73600  │
-// │  border              │                   0.00000  │                  1.00000  │
-// │  boarder             │                   0.22240  │                  0.77761  │
-// │  brother             │                   0.22239  │                  0.77761  │
-// │  broad               │                   0.26304  │                  0.73698  │
-// │  bored               │                   0.26304  │                  0.73698  │
-// —————————————————————————————————————————————————————————————————————————————————
+// ╔═══════════╤═════════════════╤════════════════╗
+// ║  term     │       dL        │       cLs      ║
+// ╟───────────┼─────────────────┼────────────────╢
+// ║  bodrer   │        0.00000  │       1.00000  ║
+// ║  board    │        0.26304  │       0.73600  ║
+// ║  border   │        0.00000  │       1.00000  ║
+// ║  boarder  │        0.22240  │       0.77761  ║
+// ║  brother  │        0.22239  │       0.77761  ║
+// ║  broad    │        0.26304  │       0.73698  ║
+// ║  bored    │        0.26304  │       0.73698  ║
+// ╚═══════════╧═════════════════╧════════════════╝
 }
 
 /// Example of a [JsonDataService] using a Hive Box.
@@ -125,7 +148,7 @@ Future<void> _jsonDataServiceExample(
   final results = (await service.batchRead(['term3', 'term5'])).values.toList();
 
   // print the records
-  Echo(title: 'JSON DATA SERVICE', results: results).printResults();
+  Console.out(title: 'JSON DATA SERVICE', results: results);
 
   // close the service, releasing the resources
   await service.close();

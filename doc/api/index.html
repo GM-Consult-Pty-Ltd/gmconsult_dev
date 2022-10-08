@@ -66,7 +66,7 @@ All rights reserved.
 <p>A collection of utilities used for unit testing and code generation.  May require knowledge of
 GM Consult coding practices and management systems:</p>
 <ul>
-<li>Use the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html">Echo</a> class to print a collection JSON documents to the console as a formatted table.</li>
+<li>Use the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Console-class.html">Console</a> class to print a collection JSON documents to the console as a formatted table.</li>
 <li>Use the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html">SaveAs</a> class to save text and JSON documents to disk.</li>
 <li>Use datasets from the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html">TestData</a> class in your unit tests.</li>
 <li>Use the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html">JsonDataService</a> class to quickly create and populate a asynchronous persisted datastore.</li>
@@ -79,7 +79,7 @@ GM Consult coding practices and management systems:</p>
   gmconsult_dev: &lt;latest_version&gt;
 </code></pre>
 <p>In your test file add the following import:</p>
-<pre class="language-dart"><code class="language-dart">// import the `Echo`, `SaveAs` and `JsonDataService` classes
+<pre class="language-dart"><code class="language-dart">// import the `Console`, `SaveAs` and `JsonDataService` classes
 import 'package:gmconsult_dev/gmconsult_dev.dart';
 
 // import the typedefs if needed
@@ -88,27 +88,41 @@ import 'package:gmconsult_dev/type_definitions.dart';
 // import the `TestData` datasets if needed
 import 'package:gmconsult_dev/test_data.dart';
 </code></pre>
-<h3 id="print-to-the-console-with-echohttpspubdevdocumentationgmconsult_devlatestgmconsult_devecho-classhtml">Print to the console with <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html">Echo</a></h3>
-<p>Pass a collection of JSON documents to the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo/Echo.html">Echo()</a> unnamed factory constructor and call <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo/printResults.html">printResults</a>:</p>
+<h3 id="print-to-the-console-with-consolehttpspubdevdocumentationgmconsult_devlatestgmconsult_devconsole-classhtml">Print to the console with <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Console-class.html">Console</a></h3>
+<p>Pass a collection of JSON documents to the <a href="https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Console/out.html">Console.out()</a> static method:</p>
 <pre class="language-dart"><code class="language-dart">
 // a sample list of JSON documents
-final json =[
-  {'Key':'item 1', 'Value': 1.3456},
-  {'Key':'item 2', 'Value': 7.89}
-];
+  const jsonCollection = {
+    'term0': {'term': 'bodrer', 'dL': 0.0, 'cLs': 1.0},
+    'term1': {'term': 'board', 'dL': 0.26303837, 'cLs': 0.736},
+    'term2': {'term': 'border', 'dL': 0.0, 'cLs': 1.0},
+    'term3': {'term': 'boarder', 'dL': 0.222395656, 'cLs': 0.77761454},
+    'term4': {'term': 'brother', 'dL': 0.22239353904, 'cLs': 0.7776134576},
+    'term5': {'term': 'broad', 'dL': 0.263035476, 'cLs': 0.73697546},
+    'term6': {'term': 'bored', 'dL': 0.2630354, 'cLs': 0.7369766},
+  };
 
-// pass a title and results to a Echo instance and call printResults
-Echo(title: 'MY TEST NAME', results: json).printResults();
+  // print a seperator 70 charcters wide
+  Console.seperator(70);
+  // prints
+  // ======================================================================
 
-// prints:
-// —————————————————————————————————————————————————————————————————————————————————
-// MY TEST NAME                                                                     
-// _________________________________________________________________________________
-// │  Key                                  │                 Value                 │
-// —————————————————————————————————————————————————————————————————————————————————
-// │  item 1                               │                               1.3456  │
-// │  item 2                               │                               7.8900  │
-// —————————————————————————————————————————————————————————————————————————————————
+  // pass a title and results to the Console.out static method to print results
+  Console.out(title: 'MY TEST NAME', results: jsonCollection.values.toList());
+  // prints:
+  //
+  // MY TEST NAME
+  // ╔═══════════╤═════════════════╤════════════════╗
+  // ║  term     │       dL        │       cLs      ║
+  // ╟───────────┼─────────────────┼────────────────╢
+  // ║  bodrer   │        0.00000  │       1.00000  ║
+  // ║  board    │        0.26304  │       0.73600  ║
+  // ║  border   │        0.00000  │       1.00000  ║
+  // ║  boarder  │        0.22240  │       0.77761  ║
+  // ║  brother  │        0.22239  │       0.77761  ║
+  // ║  broad    │        0.26304  │       0.73698  ║
+  // ║  bored    │        0.26304  │       0.73698  ║
+  // ╚═══════════╧═════════════════╧════════════════╝
 
 //
 </code></pre>
@@ -139,8 +153,8 @@ Echo(title: 'MY TEST NAME', results: json).printResults();
   // read a few records
   final results = (await service.batchRead(['term3', 'term5'])).values.toList();
 
-  // print the records
-  Echo(title: 'JSON DATA SERVICE', results: results).printResults();
+  // print the records to the console
+  Console.out(title: 'JSON DATA SERVICE', results: results);
 
   // close the service, releasing the resources
   await service.close();
@@ -270,7 +284,7 @@ standardize unit testing.
 <footer>
   <span class="no-break">
     gmconsult_dev
-      0.0.6
+      0.0.7
   </span>
 
   

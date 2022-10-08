@@ -23,7 +23,7 @@ Skip to section:
 
 A collection of utilities used for unit testing and code generation.  May require knowledge of
 GM Consult coding practices and management systems:
-* Use the [Echo](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html) class to print a collection JSON documents to the console as a formatted table.
+* Use the [Console](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Console-class.html) class to print a collection JSON documents to the console as a formatted table.
 * Use the [SaveAs](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/SaveAs-class.html) class to save text and JSON documents to disk.
 * Use datasets from the [TestData](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/TestData-class.html) class in your unit tests.
 * Use the [JsonDataService](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/JsonDataService-class.html) class to quickly create and populate a asynchronous persisted datastore.
@@ -43,7 +43,7 @@ dev_dependencies:
 In your test file add the following import:
 
 ```dart
-// import the `Echo`, `SaveAs` and `JsonDataService` classes
+// import the `Console`, `SaveAs` and `JsonDataService` classes
 import 'package:gmconsult_dev/gmconsult_dev.dart';
 
 // import the typedefs if needed
@@ -53,29 +53,43 @@ import 'package:gmconsult_dev/type_definitions.dart';
 import 'package:gmconsult_dev/test_data.dart';
 ```
 
-### Print to the console with [Echo](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo-class.html)
+### Print to the console with [Console](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Console-class.html)
 
-Pass a collection of JSON documents to the [Echo()](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo/Echo.html) unnamed factory constructor and call [printResults](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Echo/printResults.html):
+Pass a collection of JSON documents to the [Console.out()](https://pub.dev/documentation/gmconsult_dev/latest/gmconsult_dev/Console/out.html) static method:
 ```dart
 
 // a sample list of JSON documents
-final json =[
-  {'Key':'item 1', 'Value': 1.3456},
-  {'Key':'item 2', 'Value': 7.89}
-];
+  const jsonCollection = {
+    'term0': {'term': 'bodrer', 'dL': 0.0, 'cLs': 1.0},
+    'term1': {'term': 'board', 'dL': 0.26303837, 'cLs': 0.736},
+    'term2': {'term': 'border', 'dL': 0.0, 'cLs': 1.0},
+    'term3': {'term': 'boarder', 'dL': 0.222395656, 'cLs': 0.77761454},
+    'term4': {'term': 'brother', 'dL': 0.22239353904, 'cLs': 0.7776134576},
+    'term5': {'term': 'broad', 'dL': 0.263035476, 'cLs': 0.73697546},
+    'term6': {'term': 'bored', 'dL': 0.2630354, 'cLs': 0.7369766},
+  };
 
-// pass a title and results to a Echo instance and call printResults
-Echo(title: 'MY TEST NAME', results: json).printResults();
+  // print a seperator 70 charcters wide
+  Console.seperator(70);
+  // prints
+  // ======================================================================
 
-// prints:
-// —————————————————————————————————————————————————————————————————————————————————
-// MY TEST NAME                                                                     
-// _________________________________________________________________________________
-// │  Key                                  │                 Value                 │
-// —————————————————————————————————————————————————————————————————————————————————
-// │  item 1                               │                               1.3456  │
-// │  item 2                               │                               7.8900  │
-// —————————————————————————————————————————————————————————————————————————————————
+  // pass a title and results to the Console.out static method to print results
+  Console.out(title: 'MY TEST NAME', results: jsonCollection.values.toList());
+  // prints:
+  //
+  // MY TEST NAME
+  // ╔═══════════╤═════════════════╤════════════════╗
+  // ║  term     │       dL        │       cLs      ║
+  // ╟───────────┼─────────────────┼────────────────╢
+  // ║  bodrer   │        0.00000  │       1.00000  ║
+  // ║  board    │        0.26304  │       0.73600  ║
+  // ║  border   │        0.00000  │       1.00000  ║
+  // ║  boarder  │        0.22240  │       0.77761  ║
+  // ║  brother  │        0.22239  │       0.77761  ║
+  // ║  broad    │        0.26304  │       0.73698  ║
+  // ║  bored    │        0.26304  │       0.73698  ║
+  // ╚═══════════╧═════════════════╧════════════════╝
 
 //
 ```
@@ -110,8 +124,8 @@ Initialize a [JsonDataService](https://pub.dev/documentation/gmconsult_dev/lates
   // read a few records
   final results = (await service.batchRead(['term3', 'term5'])).values.toList();
 
-  // print the records
-  Echo(title: 'JSON DATA SERVICE', results: results).printResults();
+  // print the records to the console
+  Console.out(title: 'JSON DATA SERVICE', results: results);
 
   // close the service, releasing the resources
   await service.close();

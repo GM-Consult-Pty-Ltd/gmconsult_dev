@@ -6,22 +6,42 @@ All rights reserved.
 
 *THIS PACKAGE IS A PROPRIETARY, UNLISTED RESOURCE AND SUBJECT TO BREAKING CHANGES WITHOUT NOTICE.*
 
+### 0.0.7
+
+#### *Breaking changes*
+* Renamed `Echo` class to `Console`.
+* Removed the `Console.printResults` method. Use the `Console.out` static method instead.
+* Removed the `Console` unnamed factory constructor.
+
+#### *New*
+* Added `TestData.kGramIndex` dataset.
+* Added `Console.out` static method.
+* Added `Console.seperator` static method.
+
+#### *Updated*
+* Changed formatting of tables in `Console.out` method.
+* Dependencies.
+* Tests.
+* Examples.
+* Documentation.
+
+
 ### 0.0.6
 
-#### New:
+#### *New*
 * Added `Echo.separator` method.
 
-#### Updated
+#### *Updated*
 * Dependencies.
 * Tests.
 * Documentation.
 
 ### 0.0.5
 
-#### New:
+#### *New*
 * Added `API` class.
 
-#### Updated
+#### *Updated*
 * Dependencies.
 * Tests.
 * Documentation.
@@ -32,35 +52,35 @@ Stable release.
 
 ### 0.0.4-4
 
-#### Updated
+#### *Updated*
 * Dependencies.
 * Tests.
 * Documentation.
 
 ### 0.0.4-3
 
-#### Updated
+#### *Updated*
 * Dependencies.
 * Tests.
 * Documentation.
 
 ### 0.0.4-2
 
-#### Updated
+#### *Updated*
 * Dependencies.
 * Tests.
 * Documentation.
 
 ### 0.0.4-1
 
-#### Updated
+#### *Updated*
 * Dependencies.
 * Tests.
 * Documentation.
 
 ### 0.0.3+1
 
-#### Updated
+#### *Updated*
 * Dependencies.
 * Tests.
 * Examples.
@@ -68,11 +88,11 @@ Stable release.
 
 ### 0.0.3
 
-#### New:
+#### *New*
 * Added `SaveAs` class.
 * Added `TestData` class.
 
-#### Updated
+#### *Updated*
 * Dependencies.
 * Tests.
 * Examples.
@@ -80,11 +100,11 @@ Stable release.
 
 ### 0.0.3-2
 
-#### New:
+#### *New*
 * Added `SaveAs` class.
 * Added static method `SaveAs.text`.
 
-#### Updated
+#### *Updated*
 * Dependencies.
 * Tests.
 * Examples.
@@ -92,11 +112,11 @@ Stable release.
 
 ### 0.0.3-1
 
-#### New:
+#### *New*
 * Added `SaveAs` class.
 * Added static method `SaveAs.text`.
 
-#### Updated
+#### *Updated*
 * Dependencies.
 * Tests.
 * Examples.
@@ -104,10 +124,10 @@ Stable release.
 
 ### 0.0.2
 
-#### Breaking Changes:
+#### *Breaking changes*
 * Minor change to table formatting in `Echo` class
 
-#### Updated
+#### *Updated*
 * Dependencies.
 * Tests.
 * Examples.
@@ -116,7 +136,7 @@ Stable release.
 ### 0.0.1
 **BETA 1**
 
-#### New:
+#### *New*
 * class `Echo` coded and tested.
 * class `JsonDataService` coded and tested.
 * Dependencies.

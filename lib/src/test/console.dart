@@ -7,34 +7,29 @@ import 'dart:math';
 import 'package:collection/collection.dart';
 import 'package:gmconsult_dev/src/typedefs.dart';
 
-/// Test utility class to echo your JSON test results to the console as a
-/// formatted table with a [title] as title and the field names of the JSON
-/// results as column headings.
-///
-/// Call the [printResults] method to print [results] to the console:
-/// - [results] is a collection of JSON documents with the same [fields];
-/// - [fields] is an ordered collection of the field names in [results] that
-///   will be shown in the output table. The table columns are ordered in the
-///   same order as [fields].
-///
-/// The column widths are calculated on the fly from the maximum width of any
-/// value. The first column is left-justified. Subsequent columns are right
-/// justified if the value is [num], and centered if any other type.
-///
-/// All values in [results] will be printed by calling [toString] on the value,
-/// except for [double] values which will be formatted using `toStringAsFixed`
-/// after calculating three points of precision for all values in the field.
-///
-/// For any other formatting of values pre-format the value as [String] before
-/// adding to [results].
-class Echo {
+/// Test utility class to echo your JSON test results to the console:
+/// - call the [Console.out] static method to print [results] to the console
+///   as a formatted table with a [title] as title and the field names of the
+///   JSON results as column headings; or
+/// - call [Console.seperator] to print a horizontal line to the console.
+class Console {
   //
 
+  Console._(
+      this.title,
+      this.results,
+      this.fields,
+      this._fieldWidths,
+      this._fieldDigits,
+      this.fieldPadding,
+      this.maxColWidth,
+      this.minPrintWidth);
+
   /// Horizontal table row border character.
-  static const _kRowSeparator = '—';
+  static const kRowSeparator = '\u2500';
 
   /// Vertical table row border character.
-  static const _kColumnSeparator = '│';
+  static const kColumnSeparator = '\u2502';
 
   /// The name or title of the test for which results are printed.
   final String title;
@@ -44,6 +39,13 @@ class Echo {
 
   /// The maximum width of any column in the table.
   final int maxColWidth;
+
+  /// The minimum print width of the table.
+  ///
+  /// If the sum of the column widths is less than [minPrintWidth], all
+  /// columns will be made wider until the print width is equal to
+  /// [minPrintWidth].
+  final int? minPrintWidth;
 
   /// An ordered collection field names in [results]. The output table columns
   /// are ordered in the same order as [fields].
@@ -56,7 +58,7 @@ class Echo {
   /// A collection of JSON documents with the same [fields];
   final Iterable<Map<String, dynamic>> results;
 
-  /// Factory that initializes [Echo] with:
+  /// Factory that initializes [Console] with:
   /// - [title] will be printed at the top of your test results;
   /// - [results];
   /// - [fieldPadding] is the padding added to the columns, defaults to 5;
@@ -70,7 +72,17 @@ class Echo {
   /// - [minPrintWidth] is the minimum print width of the table.  If the sum of
   ///   the column widths is less than [minPrintWidth], all columns will be made
   ///   wider until the print width is equal to [minPrintWidth].
-  factory Echo(
+  /// The column widths are calculated on the fly from the maximum width of any
+  /// value. The first column is left-justified. Subsequent columns are right
+  /// justified if the value is [num], and centered if any other type.
+  ///
+  /// All values in [results] will be printed by calling [toString] on the value,
+  /// except for [double] values which will be formatted using `toStringAsFixed`
+  /// after calculating three points of precision for all values in the field.
+  ///
+  /// For any other formatting of values pre-format the value as [String] before
+  /// adding to [results].
+  static void out(
       {required String title,
       required TestResults results,
       int fieldPadding = 2,
@@ -105,29 +117,31 @@ class Echo {
       }
     }
 
-    return Echo._(title, results, fields, fieldWidths, fieldDigits,
-        fieldPadding, maxColWidth);
+    final console = Console._(title, results, fields, fieldWidths, fieldDigits,
+        fieldPadding, maxColWidth, minPrintWidth);
+    console._print();
   }
-
-  Echo._(this.title, this.results, this.fields, this._fieldWidths,
-      this._fieldDigits, this.fieldPadding, this.maxColWidth);
 
   /// Print [results] to the console as a formatted table with [title] as
   /// title and [fields] as column headings.
-  void printResults() {
-    separator();
+  void _print() {
+    _separator();
     _printTitle();
-    separator('_');
+    _tableTopBorder();
     _printHeaders();
-    separator();
+    _tableHeadersBorder();
     _printResults();
-    separator();
+    _tableBottomBorder();
+  }
+
+  /// Print a separator of [width] using [char].
+  static void seperator([int width = 80, String char = kRowSeparator]) {
+    print(''.padRight(width, char));
   }
 
   /// Print a separator
-  void separator([String char = _kRowSeparator]) {
-    print(''.padRight(_printWidth, char));
-  }
+  void _separator([String char = kRowSeparator]) =>
+      seperator(_printWidth, char);
 
   int get _printWidth {
     final fieldsWidth = _fieldWidths.values.sum + _fieldWidths.length + 1;
@@ -144,26 +158,56 @@ class Echo {
     }
   }
 
+  void _printHeaders() {
+    var i = 0;
+    final headers = StringBuffer();
+    headers.write(_kRightBorder);
+    for (final fieldName in fields) {
+      headers.write(_header(fieldName, i));
+      headers.write(i < fields.length - 1 ? kColumnSeparator : _kRightBorder);
+      i++;
+    }
+    print(headers.toString());
+  }
+
+  void _horizontalLine(
+      String leftChar, String horzChar, String colBorder, String rightBorder) {
+    final buffer = StringBuffer();
+    var i = 0;
+    buffer.write(leftChar);
+    for (final fieldName in fields) {
+      final width = _fieldWidths[fieldName] as int;
+      buffer.write(''.padRight(width, horzChar));
+      buffer.write(i < fields.length - 1 ? colBorder : rightBorder);
+      i++;
+    }
+    print(buffer.toString());
+  }
+
+  static const _kRightBorder = '\u2551';
+
+  static const _kDoubleLine = '\u2550';
+
   void _printResult(Map<String, dynamic> result) {
     final value = StringBuffer();
-    value.write(_kColumnSeparator);
+    value.write(_kRightBorder);
     for (var i = 0; i < fields.length; i++) {
       value.write(_value(fields[i], result));
-      value.write(_kColumnSeparator);
+      value.write(i < fields.length - 1 ? kColumnSeparator : _kRightBorder);
     }
     print(value.toString());
   }
 
-  void _printHeaders() {
-    var i = 0;
-    final headers = StringBuffer();
-    headers.write(_kColumnSeparator);
-    for (final fieldName in fields) {
-      headers.write(_header(fieldName, i));
-      headers.write(_kColumnSeparator);
-      i++;
-    }
-    print(headers.toString());
+  void _tableTopBorder() {
+    _horizontalLine('\u2554', _kDoubleLine, '\u2564', '\u2557');
+  }
+
+  void _tableHeadersBorder() {
+    _horizontalLine('\u255F', kRowSeparator, '\u253C', '\u2562');
+  }
+
+  void _tableBottomBorder() {
+    _horizontalLine('\u255A', _kDoubleLine, '\u2567', '\u255D');
   }
 
   String _header(String fieldName, int columnIndex) {

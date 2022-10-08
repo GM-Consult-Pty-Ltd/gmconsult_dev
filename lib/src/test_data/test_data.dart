@@ -4,10 +4,16 @@
 
 part 'data/sample_news.dart';
 part 'data/sample_stocks.dart';
+part 'data/kgram_index.dart';
 
 /// Sample datasets used for testing.
 abstract class TestData {
   //
+
+  /// A sample dataset of k-grams from [stockNews].
+  ///
+  /// Returns Map<String, Set<String>>.
+  static const kGramIndex = _kGramIndex;
 
   /// A sample dataset of sharemarket related JSON documents.
   ///

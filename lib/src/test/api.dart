@@ -123,12 +123,6 @@ abstract class API {
       data = jsonDecode(responseBody);
     } on Exception catch (e) {
       print(e);
-      if (e is FormatException) {
-        final start = (e.offset ?? 10) - 10;
-        final finish = (e.offset ?? 10) + 10;
-        final snippet = responseBody.substring(start, finish);
-        print(snippet);
-      }
     }
     if (data is JSON) {
       json = data;
