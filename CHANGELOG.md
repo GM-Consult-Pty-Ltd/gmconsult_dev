@@ -18,6 +18,9 @@ All rights reserved.
 * Added `Console.out` static method.
 * Added `Console.seperator` static method.
 
+#### *Bug fixes*
+* Fixed exception thrown when `API.get` receives a status code other than 200.
+
 #### *Updated*
 * Changed formatting of tables in `Console.out` method.
 * Dependencies.
