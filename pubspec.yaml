@@ -3,7 +3,7 @@
 # All rights reserved.
 
 name: gmconsult_dev
-description: DART utilities for GM Consult developers to generate code and lubricate / standardize unit testing.
+description: DART utilities for GM Consult developers to lubricate / standardize unit testing.
 version: 0.0.7
 repository: https://github.com/GM-Consult-Pty-Ltd/gmconsult_dev
 homepage: https://github.com/GM-Consult-Pty-Ltd

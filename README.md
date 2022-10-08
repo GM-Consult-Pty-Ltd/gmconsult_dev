@@ -4,10 +4,8 @@ Copyright (c) 2022, GM Consult Pty Ltd
 All rights reserved. 
 -->
 
-# gmconsult_dev
-
 [![GM Consult Pty Ltd](https://raw.githubusercontent.com/GM-Consult-Pty-Ltd/gmconsult_dev/main/assets/images/gmconsult_dev_header.png?raw=true "GM Consult Pty Ltd")](https://github.com/GM-Consult-Pty-Ltd)
-## **Generate code and lubricate / standardize unit testing.**
+## **Lubricate / standardize unit testing.**
 
 *THIS PACKAGE IS A PROPRIETARY, UNLISTED RESOURCE AND SUBJECT TO BREAKING CHANGES WITHOUT NOTICE.*
 
