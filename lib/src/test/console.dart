@@ -85,7 +85,7 @@ class Console {
   static void out(
       {required String title,
       required TestResults results,
-      int fieldPadding = 2,
+      int fieldPadding = 1,
       int maxColWidth = 40,
       int? minPrintWidth,
       List<String>? fields}) {
@@ -228,9 +228,7 @@ class Console {
         ? text.leftJustify(width, fieldPadding)
         : value is num || value is Duration
             ? text.rightJustify(width, fieldPadding)
-            : value is String
-                ? text.leftJustify(width, fieldPadding)
-                : text.center(width);
+            : text.leftJustify(width, fieldPadding);
   }
 }
 

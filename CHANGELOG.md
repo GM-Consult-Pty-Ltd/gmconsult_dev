@@ -6,6 +6,11 @@ All rights reserved.
 
 *THIS PACKAGE IS A PROPRIETARY, UNLISTED RESOURCE AND SUBJECT TO BREAKING CHANGES WITHOUT NOTICE.*
 
+### 0.0.7+1
+
+#### *Bug fixes*
+* Fixed alignment of values.
+
 ### 0.0.7
 
 #### *Breaking changes*
