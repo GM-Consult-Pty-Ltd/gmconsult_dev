@@ -31,7 +31,7 @@ GM Consult coding practices and management systems:
 
 ## Usage
 
-Fully worked [examples](https://pub.dev/packages/gmconsult_dev/example) are included in the package.
+Fully worked [examples](https://pub.dev/packages/gmconsult_dev/example) are included in the package repository.
 
 In the `pubspec.yaml` of your flutter project, add the following dev dependency:
 
