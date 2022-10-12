@@ -81,7 +81,7 @@ const _sampleStocks = {
         'enterprises, such as Gmail, Docs, Drive, Calendar, and Meet; and\n'
         'other services for enterprise customers.\n'
         'The Other Bets segment sells health technology and internet services.\n'
-        'The company was founded in 1998 and is headquartered in Mountain View,'
+        'The company was founded in 1998 and is headquartered in Mountain View, '
         'California.',
     'entityType': 'SecurityData',
     'exchange': 'Exchange.XNGS',
