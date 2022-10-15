@@ -5,6 +5,10 @@
 part 'data/sample_news.dart';
 part 'data/sample_stocks.dart';
 part 'data/kgram_index.dart';
+part 'data/countries.dart';
+part 'data/currencies.dart';
+part 'data/languages.dart';
+part 'data/locales.dart';
 
 /// Sample datasets used for testing.
 abstract class TestData {
@@ -48,4 +52,20 @@ abstract class TestData {
     {'term': 'bodrer', 'other': 'broad', 'dL': 0.263035476, 'cLs': 0.73697546},
     {'term': 'bodrer', 'other': 'bored', 'dL': 0.2630354, 'cLs': 0.7369766},
   ];
+
+  /// A comprehensive list of countries in `JsonCollection
+  /// (Map<String, Map<String, Object>>)` format.
+  static const countries = _countries;
+
+  /// A comprehensive list of currencies in `JsonCollection
+  /// (Map<String, Map<String, Object>>)` format.
+  static const currencies = _currencies;
+
+  /// A comprehensive list of currencies in `JsonCollection
+  /// (Map<String, Map<String, Object>>)` format.
+  static const languages = _languages;
+
+  /// A comprehensive list of currencies in `JsonCollection
+  /// (Map<String, Map<String, Object>>)` format.
+  static const locales = _locales;
 }

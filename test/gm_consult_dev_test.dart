@@ -62,15 +62,15 @@ void main() {
 
     test('.json', (() async {
       await SaveAs.json(
-        fileName: 'test/data/google',
-        json: TestData.json,
+        fileName: 'test/data/countries',
+        json: TestData.countries,
       );
     }));
 
     test('.results', (() async {
       await SaveAs.results(
         fileName: 'test/data/results',
-        results: TestData.stockData.values,
+        results: TestData.countries.values,
         keyBuilder: (json) => json['id'],
       );
     }));
@@ -113,6 +113,83 @@ void main() {
           title: 'STOCKS',
           results: results,
           fields: ['hashTag', 'name', 'description']);
+
+      // close the service, releasing the resources
+      await service.close();
+    }));
+
+    test('HiveJsonService.batchUpsert(languages)', (() async {
+//   //
+
+      final service = await JsonDataService.hydrate(
+          '${Directory.current.path}\\test\\data', 'languages');
+
+      // clear the datastore
+      await service.dataStore.clear();
+
+      // add all the elements of sampleStocks
+      await service.batchUpsert(TestData.languages);
+
+      // read a few records
+      final results = (await service.batchRead(['en', 'ar'])).values.toList();
+
+      // print the records
+      Console.out(
+          title: 'RESULTS',
+          results: results,
+          fields: ['iso2Code', 'exonym', 'endonym']);
+
+      // close the service, releasing the resources
+      await service.close();
+    }));
+
+    test('HiveJsonService.batchUpsert(countries)', (() async {
+//   //
+
+      final service = await JsonDataService.hydrate(
+          '${Directory.current.path}\\test\\data', 'countries');
+
+      // clear the datastore
+      await service.dataStore.clear();
+
+      // add all the elements of sampleStocks
+      await service.batchUpsert(TestData.countries);
+
+      // read a few records
+      final results = (await service.batchRead(['ZA', 'AU'])).values.toList();
+
+      // print the records
+      Console.out(
+          title: 'RESULTS',
+          results: results,
+          fields: ['alpha2', 'exonym', 'population']);
+
+      // close the service, releasing the resources
+      await service.close();
+    }));
+
+    test('HiveJsonService.batchUpsert(currencies)', (() async {
+//   //
+
+      final service = await JsonDataService.hydrate(
+          '${Directory.current.path}\\test\\data', 'currencies');
+
+      // clear the datastore
+      await service.dataStore.clear();
+
+      // add all the elements of sampleStocks
+      await service.batchUpsert(TestData.currencies);
+
+      // read a few records
+      final results = (await service.batchRead(['AUD', 'ZAR', 'EUR', 'GBP']))
+          .values
+          .toList();
+
+      // print the records
+      Console.out(
+          title: 'RESULTS',
+          results: results,
+          fields: ['name', 'symbol', 'symbolUnicode']);
 
       // close the service, releasing the resources
       await service.close();

@@ -6,6 +6,14 @@ All rights reserved.
 
 *THIS PACKAGE IS A PROPRIETARY, UNLISTED RESOURCE AND SUBJECT TO BREAKING CHANGES WITHOUT NOTICE.*
 
+### 0.0.7+3
+
+#### *Updated*
+* Dependencies.
+* Tests.
+* Examples.
+* Documentation.
+
 ### 0.0.7+2
 
 #### *Bug fixes*
