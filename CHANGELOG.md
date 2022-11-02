@@ -6,6 +6,12 @@ All rights reserved.
 
 *THIS PACKAGE IS A PROPRIETARY, UNLISTED RESOURCE AND SUBJECT TO BREAKING CHANGES WITHOUT NOTICE.*
 
+
+### 0.0.7+5
+
+#### *Updated*
+* Dependencies.
+
 ### 0.0.7+4
 
 #### *Updated*
